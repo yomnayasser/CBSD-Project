@@ -14,6 +14,8 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 
 public class NewReminderActivity extends AppCompatActivity {
+    Button btnDatePicker, btnTimePicker;
+    EditText txtDate, txtTime;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     @Override
@@ -21,10 +23,10 @@ public class NewReminderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_reminder);
 
-        Button btnDatePicker=(Button)findViewById(R.id.btn_date);
-        Button btnTimePicker=(Button)findViewById(R.id.btn_time);
-        EditText txtDate=(EditText)findViewById(R.id.in_date);
-        EditText txtTime=(EditText)findViewById(R.id.in_time);
+        btnDatePicker=(Button)findViewById(R.id.btn_date);
+        btnTimePicker=(Button)findViewById(R.id.btn_time);
+        txtDate=(EditText)findViewById(R.id.in_date);
+        txtTime=(EditText)findViewById(R.id.in_time);
 
         btnDatePicker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +37,7 @@ public class NewReminderActivity extends AppCompatActivity {
                 mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(),
+                DatePickerDialog datePickerDialog = new DatePickerDialog(NewReminderActivity.this,
                         new DatePickerDialog.OnDateSetListener() {
 
                             @Override
@@ -50,26 +52,26 @@ public class NewReminderActivity extends AppCompatActivity {
             }
         });
 
-//        btnTimePicker.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                final Calendar c = Calendar.getInstance();
-//                mHour = c.get(Calendar.HOUR_OF_DAY);
-//                mMinute = c.get(Calendar.MINUTE);
-//
-//                // Launch Time Picker Dialog
-//                TimePickerDialog timePickerDialog = new TimePickerDialog(getApplicationContext(),
-//                        new TimePickerDialog.OnTimeSetListener() {
-//
-//                            @Override
-//                            public void onTimeSet(TimePicker view, int hourOfDay,
-//                                                  int minute) {
-//
-//                                txtTime.setText(hourOfDay + ":" + minute);
-//                            }
-//                        }, mHour, mMinute, false);
-//                timePickerDialog.show();
-//            }
-//        });
+        btnTimePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                mHour = c.get(Calendar.HOUR_OF_DAY);
+                mMinute = c.get(Calendar.MINUTE);
+
+                // Launch Time Picker Dialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(NewReminderActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay,
+                                                  int minute) {
+
+                                txtTime.setText(hourOfDay + ":" + minute);
+                            }
+                        }, mHour, mMinute, false);
+                timePickerDialog.show();
+            }
+        });
     }
 }
