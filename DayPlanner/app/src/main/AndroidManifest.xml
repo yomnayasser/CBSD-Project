@@ -11,6 +11,7 @@
         android:theme="@style/Theme.DayPlanner">
         <activity android:name=".RemindersActivity"></activity>
         <activity android:name=".NewReminderActivity" />
+        <activity android:name=".ToDoActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
