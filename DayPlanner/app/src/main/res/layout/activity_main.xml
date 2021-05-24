@@ -89,4 +89,15 @@
         android:text="To Do"
         app:layout_constraintStart_toStartOf="@+id/remindersBtn"
         app:layout_constraintTop_toBottomOf="@+id/remindersBtn" />
+
+    <Button
+        android:id="@+id/notesBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="159dp"
+        android:layout_marginRight="159dp"
+        android:layout_marginBottom="255dp"
+        android:text="Notes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
