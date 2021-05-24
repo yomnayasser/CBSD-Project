@@ -8,8 +8,8 @@
 
     <EditText
         android:id="@+id/noteText"
-        android:layout_width="249dp"
-        android:layout_height="48dp"
+        android:layout_width="254dp"
+        android:layout_height="135dp"
         android:layout_marginTop="84dp"
         android:layout_marginEnd="80dp"
         android:layout_marginRight="80dp"
@@ -27,6 +27,16 @@
         android:layout_marginRight="156dp"
         android:layout_marginBottom="72dp"
         android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="355dp"
+        android:layout_height="148dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginRight="28dp"
+        android:layout_marginBottom="340dp"
+        android:hint="Write what's on your mind.."
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
