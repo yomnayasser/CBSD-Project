@@ -21,7 +21,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Button signIn_btn = (Button)findViewById(R.id.SignInbutton);
         Button signUp_btn = (Button)findViewById(R.id.SignUpbutton);
 
@@ -30,15 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView logoPic = (ImageView)findViewById(R.id.imageView);
         logoPic.setBackgroundResource(R.drawable.logo2);
-
-//        db = new DayPlannerDatabase(getApplicationContext());
-//        Cursor cursor=db.fetchAllUser();
-//        while (!cursor.isAfterLast())
-//        {
-//            dpAdapter.add(cursor.getString(0));
-//            cursor.moveToNext();
-//        }
-
 
         signIn_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,22 +41,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,Result,Toast.LENGTH_LONG).show();
                 Intent i = new Intent(MainActivity.this,HomeActivity.class);
                 startActivity(i);
-
-
-
-
             }
         });
 
-        signUp_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,SignupActivity.class);
-                startActivity(i);
-            }
-        });
-
-
+       signUp_btn.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent i = new Intent(MainActivity.this,SignupActivity.class);
+               startActivity(i);
+           }
+       });
 
     }
 }
