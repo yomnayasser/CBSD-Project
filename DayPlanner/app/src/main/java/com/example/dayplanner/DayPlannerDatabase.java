@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.format.DateFormat;
 
 public class DayPlannerDatabase extends SQLiteOpenHelper
 {
@@ -22,9 +23,9 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("create table Notes(Notes_ID integer primary key autoincrement ,noteText text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoList(TodoList_ID integer primary key autoincrement ,name text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement ,name text not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,Budget integer not null,Repeat text,start_date DATE,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
+        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,Budget float not null,Repeat text,start_date DATE,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
-        db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,Category text not null,Amount integer not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
+        db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,Category text not null,Amount float not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
@@ -99,5 +100,69 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
             return cursor.getString(0);
         }
 
+    }
+    public void AddNewWallet(float Budget,String Repeat,String start_date,String username)
+    {
+        ContentValues row = new ContentValues();
+        row.put("username",username);
+        row.put("Budget",Budget);
+        row.put("Repeat",Repeat);
+        row.put("start_date",start_date);
+        DP_Database=getWritableDatabase();
+        DP_Database.insert("Wallet",null,row);
+        DP_Database.close();
+    }
+    public void EditWallet(float Budget,String Repeat,String start_date,String username)
+    {
+        ContentValues row = new ContentValues();
+        row.put("Budget",Budget);
+        row.put("Repeat",Repeat);
+        row.put("start_date",start_date);
+        DP_Database=getWritableDatabase();
+        DP_Database.update("Wallet",row,"username like ?",new String []{username});
+        DP_Database.close();
+    }
+    public void UpdateBudget(String username,float new_budget)
+    {
+        ContentValues row = new ContentValues();
+        row.put("Budget",new_budget);
+
+        DP_Database=getWritableDatabase();
+        DP_Database.update("Wallet",row,"username like ?",new String []{username});
+        DP_Database.close();
+    }
+    public float getBudget(String username)
+    {
+        DP_Database=getReadableDatabase();
+        Cursor cursor = DP_Database.rawQuery("select Budget from Wallet where username='"+ username +"'",null);
+
+        DP_Database.close();
+        return Float.parseFloat(cursor.getString(0));
+    }
+    public void AddExpense(int walletID, String category, float amount, String date)
+    {
+        ContentValues row = new ContentValues();
+        row.put("Wallet_ID",walletID);
+        row.put("Category",category);
+        row.put("Amount",amount);
+        row.put("time", date);
+        DP_Database=getWritableDatabase();
+        DP_Database.insert("Expenses",null,row);
+        DP_Database.close();
+    }
+    public Cursor getAllExpenses(int walletID)
+    {
+        DP_Database=getReadableDatabase();
+        Cursor cursor = DP_Database.rawQuery("select amount,category,time from expenses where wallet_id='"+walletID+"'",null);
+        if(cursor!=null)
+            cursor.moveToFirst();
+        DP_Database.close();
+        return cursor;
+    }
+    public void deleteExpense(int ExpenseID)
+    {
+        DP_Database=getWritableDatabase();
+        DP_Database.delete("Expenses","expenses_id='"+ExpenseID+"'",null);
+        DP_Database.close();
     }
 }

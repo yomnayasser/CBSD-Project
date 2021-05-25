@@ -29,8 +29,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:layout_width="406dp"
-        android:layout_height="572dp"
+        android:layout_width="415dp"
+        android:layout_height="568dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/EditBtn"
         app:layout_constraintStart_toStartOf="@+id/textView5"
