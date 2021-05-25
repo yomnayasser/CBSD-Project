@@ -15,6 +15,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Button remindersBtn = (Button)findViewById(R.id.remindersBtn);
         Button todoBtn = (Button)findViewById(R.id.todoBtn);
+        Button notesBtn = (Button)findViewById(R.id.notesBtn);
 
         remindersBtn.setOnClickListener(v -> {
             Intent i = new Intent(HomeActivity.this, RemindersActivity.class);
@@ -23,6 +24,10 @@ public class HomeActivity extends AppCompatActivity {
 
         todoBtn.setOnClickListener(v -> {
             Intent i = new Intent(HomeActivity.this, ToDoActivity.class);
+            startActivity(i);
+        });
+        notesBtn.setOnClickListener(v -> {
+            Intent i = new Intent(HomeActivity.this, NotesActivity.class);
             startActivity(i);
         });
     }

@@ -73,21 +73,36 @@
         android:id="@+id/remindersBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="193dp"
+        android:layout_marginTop="304dp"
         android:text="Reminders"
+        app:backgroundTint="@color/teal_200"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/todoBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="114dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="192dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginRight="148dp"
         android:text="To Do"
-        app:layout_constraintStart_toStartOf="@+id/remindersBtn"
-        app:layout_constraintTop_toBottomOf="@+id/remindersBtn" />
+        app:backgroundTint="@color/teal_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/notesBtn"
+        android:layout_width="114dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="416dp"
+        android:layout_marginEnd="152dp"
+        android:layout_marginRight="152dp"
+        android:text="Notes"
+        app:backgroundTint="@color/teal_200"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
