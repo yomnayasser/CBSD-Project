@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DayPlanner">
-        <activity android:name=".RemindersActivity"></activity>
+        <activity android:name=".AddNoteActivity"></activity>
+        <activity android:name=".NotesActivity" />
+        <activity android:name=".RemindersActivity" />
         <activity android:name=".NewReminderActivity" />
-        <activity android:name=".ToDoActivity"></activity>
+        <activity android:name=".ToDoActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
