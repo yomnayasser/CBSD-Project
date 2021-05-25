@@ -16,7 +16,6 @@ public class MainActivity extends AppCompatActivity {
 
         Button remindersBtn = (Button)findViewById(R.id.remindersBtn);
         Button todoBtn = (Button)findViewById(R.id.todoBtn);
-        Button notesBtn = (Button)findViewById(R.id.notesBtn);
 
         remindersBtn.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, RemindersActivity.class);
@@ -25,11 +24,6 @@ public class MainActivity extends AppCompatActivity {
 
         todoBtn.setOnClickListener(v -> {
             Intent i = new Intent(MainActivity.this, ToDoActivity.class);
-            startActivity(i);
-        });
-
-        notesBtn.setOnClickListener(v -> {
-            Intent i = new Intent(MainActivity.this, NotesActivity.class);
             startActivity(i);
         });
     }
