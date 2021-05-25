@@ -38,9 +38,24 @@ public class MainActivity extends AppCompatActivity {
                 UserClass user = new UserClass(Username,Password,MainActivity.this);
 
                 String Result = user.Login();
-                Toast.makeText(MainActivity.this,Result,Toast.LENGTH_LONG).show();
-                Intent i = new Intent(MainActivity.this,HomeActivity.class);
-                startActivity(i);
+                if(Result=="false")
+                {
+                    Toast.makeText(MainActivity.this,"Wrong Username or Password",Toast.LENGTH_LONG).show();
+                }
+                else if(Result=="true")
+                {
+                    Toast.makeText(MainActivity.this," Login Successfully",Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(MainActivity.this,HomeActivity.class);
+                    startActivity(i);
+                }
+                else if(Result=="Not found")
+                {
+                    Toast.makeText(MainActivity.this,"Username does not exist,Please Signup",Toast.LENGTH_LONG).show();
+                }
+
+
+
+
             }
         });
 
