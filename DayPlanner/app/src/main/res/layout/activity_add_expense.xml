@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/CategoryTxt" />
 
     <Button
-        android:id="@+id/SaveBtn"
+        android:id="@+id/SaveExpenseBtn"
         android:layout_width="336dp"
         android:layout_height="55dp"
         android:layout_marginTop="116dp"

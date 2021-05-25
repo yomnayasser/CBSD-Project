@@ -14,7 +14,7 @@ public class AddExpenseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense);
 
-        Button save=(Button)findViewById(R.id.AddExpenseBtn);
+        Button save=(Button)findViewById(R.id.SaveExpenseBtn);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

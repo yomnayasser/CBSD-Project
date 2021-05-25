@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.format.DateFormat;
 
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+
 public class DayPlannerDatabase extends SQLiteOpenHelper
 {
     private static String databaseName="DP_Database";
@@ -23,7 +26,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("create table Notes(Notes_ID integer primary key autoincrement ,noteText text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoList(TodoList_ID integer primary key autoincrement ,name text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement ,name text not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,Budget float not null,Repeat text,start_date DATE,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
+        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,Budget float not null,Repeat text,start_date Text,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
         db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,Category text not null,Amount float not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
     }
@@ -101,26 +104,44 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         }
 
     }
-    public void AddNewWallet(float Budget,String Repeat,String start_date,String username)
+    public void AddNewWallet(float Budget, String Repeat, Date start_date, String username)
     {
         ContentValues row = new ContentValues();
         row.put("username",username);
         row.put("Budget",Budget);
         row.put("Repeat",Repeat);
-        row.put("start_date",start_date);
+        row.put("start_date", String.valueOf(start_date));
         DP_Database=getWritableDatabase();
         DP_Database.insert("Wallet",null,row);
         DP_Database.close();
     }
-    public void EditWallet(float Budget,String Repeat,String start_date,String username)
+    public void EditWallet(float Budget,String Repeat,Date start_date,String username)
     {
         ContentValues row = new ContentValues();
         row.put("Budget",Budget);
         row.put("Repeat",Repeat);
-        row.put("start_date",start_date);
+        row.put("start_date", String.valueOf(start_date));
         DP_Database=getWritableDatabase();
         DP_Database.update("Wallet",row,"username like ?",new String []{username});
         DP_Database.close();
+    }
+    public Cursor getWallet(String username)
+    {
+        DP_Database=getReadableDatabase();
+        Cursor cursor = DP_Database.rawQuery("select * from Wallet where username='"+username+"'",null);
+        if(cursor!=null)
+            cursor.moveToFirst();
+        DP_Database.close();
+        return cursor;
+    }
+    public void ManageWallet(float Budget, String Repeat, Date start_date, String username)
+    {
+        DP_Database=getReadableDatabase();
+        Cursor cursor =DP_Database.rawQuery("select * from wallet where username= ?",new String []{username});
+        if(cursor==null)
+            AddNewWallet(Budget,Repeat,start_date,username);
+        else
+            EditWallet(Budget,Repeat,start_date,username);
     }
     public void UpdateBudget(String username,float new_budget)
     {
@@ -139,13 +160,13 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.close();
         return Float.parseFloat(cursor.getString(0));
     }
-    public void AddExpense(int walletID, String category, float amount, String date)
+    public void AddExpense(int walletID, String category, float amount, DateTimeFormatter date)
     {
         ContentValues row = new ContentValues();
         row.put("Wallet_ID",walletID);
         row.put("Category",category);
         row.put("Amount",amount);
-        row.put("time", date);
+        row.put("time", String.valueOf(date));
         DP_Database=getWritableDatabase();
         DP_Database.insert("Expenses",null,row);
         DP_Database.close();
