@@ -105,4 +105,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/WalletBtn"
+        android:layout_width="114dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="148dp"
+        android:layout_marginRight="148dp"
+        android:text="Wallet"
+        app:backgroundTint="@color/teal_200"
+        app:layout_constraintEnd_toEndOf="@+id/notesBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/notesBtn"
+        app:layout_constraintTop_toBottomOf="@+id/notesBtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

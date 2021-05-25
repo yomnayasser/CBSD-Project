@@ -22,7 +22,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("create table Notes(Notes_ID integer primary key autoincrement ,noteText text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoList(TodoList_ID integer primary key autoincrement ,name text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement ,name text not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,Budget integer not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
+        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,Budget integer not null,Repeat text,start_date DATE,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
         db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,Category text not null,Amount integer not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
     }
