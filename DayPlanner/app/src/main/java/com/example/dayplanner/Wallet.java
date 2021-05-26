@@ -20,21 +20,36 @@ public class Wallet
     private float budget;
     private String Repeat;
     private Date date;
-    UserClass user;
+    private String username;
     Context context;
     DayPlannerDatabase db;
-    public Wallet(){
-        this.id = 0;
-        this.budget = 0;
-        this.Repeat = null;
-        this.date = null;
+    public Wallet(String username,Context context){
+       this.username=username;
+        this.context=context;
     }
-    public Wallet(float budget, String repeat, Date date,UserClass user,Context context) {
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public Wallet(float budget, String repeat, String username, Context context) {
         this.budget = budget;
         this.Repeat = repeat;
-        this.date = date;
+//        this.date = date;
         this.context=context;
-        this.user=user;
+        this.username=username;
     }
 
     public int getId() {
@@ -69,16 +84,17 @@ public class Wallet
         this.date = date;
     }
 
-    public boolean getWallet(UserClass user) throws ParseException {
-        SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
+    public boolean getWallet(){
+//        SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
         db=new DayPlannerDatabase(context);
-        Cursor cursor=db.getWallet(user.getUsername());
-        if(cursor!=null)
+        Cursor cursor=db.getWallet(username);
+        if(cursor!=null && cursor.getCount() != 0)
         {
             this.id= Integer.parseInt(cursor.getString(0));
             this.budget= Float.parseFloat(cursor.getString(1));
             this.Repeat= cursor.getString(2);
-            this.date= formatter1.parse(cursor.getString(3));
+//          this.date= formatter1.parse(cursor.getString(3));
+//            cursor.close();
             return false;
         }
         return true;
@@ -86,12 +102,8 @@ public class Wallet
 
     public void EditWallet()
     {
-        db =new DayPlannerDatabase(context);
-//        if(repeat=="weekly")
-//        {
-//
-//        }
-        db.ManageWallet(this.budget,this.Repeat,this.date,this.user.getUsername());
+        db =new DayPlannerDatabase(this.context);
+        db.ManageWallet(this.budget,this.Repeat,this.username);
     }
 //    public Date weeklyRepeat(Date date)
 //    {

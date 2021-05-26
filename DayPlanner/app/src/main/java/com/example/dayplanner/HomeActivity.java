@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -17,9 +16,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home2);
 
-        Bundle bundle = getIntent().getExtras();
-        UserClass user = bundle.getParcelable("user");
-        Wallet w=new Wallet();
+        String username=getIntent().getExtras().getString("username");
 
         Button remindersBtn = (Button)findViewById(R.id.remindersBtn);
         Button todoBtn = (Button)findViewById(R.id.todoBtn);
@@ -40,24 +37,27 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(i);
         });
         WalletBtn.setOnClickListener(v -> {
-            try {
-                boolean NewWallet = w.getWallet(user);
-                if(NewWallet==false)
-                {
-                    Intent i = new Intent(HomeActivity.this, MyWalletActivity.class);
-                    i.putExtra("Wallet", (Parcelable) w);
-                    startActivity(i);
-                    Toast.makeText(HomeActivity.this," Login Successfully",Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Intent i = new Intent(HomeActivity.this, AddBudgetActivity.class);
-                    i.putExtra("user", (Parcelable)user);
-                    startActivity(i);
-                }
+            Wallet w=new Wallet(username,HomeActivity.this);
+            boolean newWallet = w.getWallet();
+            if(newWallet==false)
+            {
+                Intent i = new Intent(HomeActivity.this, MyWalletActivity.class);
+                i.putExtra("username",w.getUsername());
+                i.putExtra("id",w.getId());
+                i.putExtra("budget",w.getBudget());
+                i.putExtra("repeat",w.getRepeat());
+//                i.putExtra("date",w.getDate());
+                startActivity(i);
             }
-            catch (ParseException e) {
-                e.printStackTrace();
+            else
+            {
+                Intent i = new Intent(HomeActivity.this, AddBudgetActivity.class);
+                i.putExtra("username",username);
+                i.putExtra("id",0);
+                i.putExtra("budget",0);
+                i.putExtra("repeat","None");
+                // i.putExtra("date","");
+                startActivity(i);
             }
         });
     }

@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 String Result = user.Login();
                 Toast.makeText(MainActivity.this,Result,Toast.LENGTH_LONG).show();
                 Intent i = new Intent(MainActivity.this,HomeActivity.class);
+                i.putExtra("username",user.getUsername());
                 startActivity(i);
             }
         });

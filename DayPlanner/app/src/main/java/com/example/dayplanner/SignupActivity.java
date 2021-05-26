@@ -43,6 +43,7 @@ public class SignupActivity extends AppCompatActivity {
                     {
                         Toast.makeText(SignupActivity.this, "Sign up successfully",Toast.LENGTH_LONG).show();
                         Intent i = new Intent(SignupActivity.this,HomeActivity.class);
+                        i.putExtra("username",newUSer.getUsername());
                         startActivity(i);
                     }
                     else

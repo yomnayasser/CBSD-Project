@@ -104,44 +104,45 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         }
 
     }
-    public void AddNewWallet(float Budget, String Repeat, Date start_date, String username)
+    public void AddNewWallet(float Budget, String Repeat, String username)
     {
         ContentValues row = new ContentValues();
-        row.put("username",username);
+        row.put("user_username",username);
         row.put("Budget",Budget);
         row.put("Repeat",Repeat);
-        row.put("start_date", String.valueOf(start_date));
+        //row.put("start_date", String.valueOf(start_date));
         DP_Database=getWritableDatabase();
         DP_Database.insert("Wallet",null,row);
         DP_Database.close();
     }
-    public void EditWallet(float Budget,String Repeat,Date start_date,String username)
+    public void EditWallet(float Budget,String Repeat,String username)
     {
         ContentValues row = new ContentValues();
         row.put("Budget",Budget);
         row.put("Repeat",Repeat);
-        row.put("start_date", String.valueOf(start_date));
+        //row.put("start_date", String.valueOf(start_date));
         DP_Database=getWritableDatabase();
-        DP_Database.update("Wallet",row,"username like ?",new String []{username});
+        DP_Database.update("Wallet",row,"user_username like ?",new String []{username});
         DP_Database.close();
     }
     public Cursor getWallet(String username)
     {
         DP_Database=getReadableDatabase();
-        Cursor cursor = DP_Database.rawQuery("select * from Wallet where username='"+username+"'",null);
+        Cursor cursor = DP_Database.rawQuery("select  wallet_ID,Budget,repeat from Wallet where user_username='"+username+"'",null);
         if(cursor!=null)
             cursor.moveToFirst();
         DP_Database.close();
         return cursor;
     }
-    public void ManageWallet(float Budget, String Repeat, Date start_date, String username)
+    public void ManageWallet(float Budget, String Repeat, String username)
     {
         DP_Database=getReadableDatabase();
-        Cursor cursor =DP_Database.rawQuery("select * from wallet where username= ?",new String []{username});
-        if(cursor==null)
-            AddNewWallet(Budget,Repeat,start_date,username);
+        Cursor cursor =DP_Database.rawQuery("select wallet_ID,Budget,repeat from wallet where user_username= ?",new String []{username});
+        if(cursor==null && cursor.getCount()==0)
+            AddNewWallet(Budget,Repeat,username);
         else
-            EditWallet(Budget,Repeat,start_date,username);
+            EditWallet(Budget,Repeat,username);
+        DP_Database.close();
     }
     public void UpdateBudget(String username,float new_budget)
     {
@@ -149,7 +150,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         row.put("Budget",new_budget);
 
         DP_Database=getWritableDatabase();
-        DP_Database.update("Wallet",row,"username like ?",new String []{username});
+        DP_Database.update("Wallet",row,"user_username like ?",new String []{username});
         DP_Database.close();
     }
     public float getBudget(String username)
