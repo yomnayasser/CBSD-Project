@@ -68,21 +68,21 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.close();
 
     }
-    public String checkUsername(String Username)
+    public boolean checkUsername(String username)
     {
         DP_Database=getReadableDatabase();
-        String [] arg ={Username};
-        Cursor cursor = DP_Database.rawQuery("select username from User where username like ?",arg);
+        String [] arg ={username};
+        Cursor cursor = DP_Database.rawQuery("select name from User where username like ?",arg);
         cursor.moveToFirst();
-        if(cursor.getCount()==0)
+        if(cursor==null)
         {
             DP_Database.close();
-            return "false";
+            return false;
         }
         else
         {
             DP_Database.close();
-            return "true";
+            return true;
         }
     }
 

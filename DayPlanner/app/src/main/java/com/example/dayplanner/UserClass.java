@@ -104,23 +104,22 @@ public class UserClass extends Activity
     public String Login()
     {
         dp = new DayPlannerDatabase(context);
-         String Username = dp.checkUsername(username);
-         if(Username=="false")
+         Boolean Username = dp.checkUsername(username);
+         if(!Username)
          {
-             return "Not found";
+             return "Username does not exist,Please Signup";
          }
          else
          {
              String LoginResult = dp.login(username,password);
              if(LoginResult=="false")
              {
-                 return "false";
+                 return "Wrong Username or Password";
              }
              else
              {
-                 return "true";
+                 return "Login Successfully";
              }
-
 
          }
     }
