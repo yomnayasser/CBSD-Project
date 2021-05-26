@@ -29,11 +29,12 @@ public class Wallet
         this.Repeat = null;
         this.date = null;
     }
-    public Wallet(int id, float budget, String repeat, Date date,Context context) {
-        this.id = id;
+    public Wallet(float budget, String repeat, Date date,UserClass user,Context context) {
         this.budget = budget;
         this.Repeat = repeat;
         this.date = date;
+        this.context=context;
+        this.user=user;
     }
 
     public int getId() {
@@ -78,21 +79,19 @@ public class Wallet
             this.budget= Float.parseFloat(cursor.getString(1));
             this.Repeat= cursor.getString(2);
             this.date= formatter1.parse(cursor.getString(3));
-            return true;
-            //lw true h5le el home activity twdene l my wallet
+            return false;
         }
-        //lw false home hywdene l add budget activity
-        return false;
+        return true;
     }
 
-    public void EditWallet(float budget, String repeat, Date date,UserClass user)
+    public void EditWallet()
     {
         db =new DayPlannerDatabase(context);
 //        if(repeat=="weekly")
 //        {
 //
 //        }
-        db.ManageWallet(budget,repeat,date,user.getUsername());
+        db.ManageWallet(this.budget,this.Repeat,this.date,this.user.getUsername());
     }
 //    public Date weeklyRepeat(Date date)
 //    {
@@ -102,12 +101,4 @@ public class Wallet
     {
 
     }
-//    public boolean CheckIfNew()
-//    {
-//        String username=user.getUsername();
-//        Cursor found=db.getWallet(username);
-//        if(found==null)
-//            return true;
-//        return false;
-//    }
 }
