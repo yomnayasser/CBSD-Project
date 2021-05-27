@@ -19,13 +19,18 @@ public class Wallet
     private int id;
     private float budget;
     private String Repeat;
-    private Date date;
+    private String date;
     private String username;
-    Context context;
     DayPlannerDatabase db;
-    public Wallet(String username,Context context){
-       this.username=username;
-        this.context=context;
+    public Wallet()
+    {
+    }
+
+    public Wallet(float budget, String repeat, String username,String start_date) {
+        this.budget = budget;
+        this.Repeat = repeat;
+        this.date = start_date;
+        this.username=username;
     }
 
     public String getUsername() {
@@ -34,22 +39,6 @@ public class Wallet
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
-    public Wallet(float budget, String repeat, String username, Context context) {
-        this.budget = budget;
-        this.Repeat = repeat;
-//        this.date = date;
-        this.context=context;
-        this.username=username;
     }
 
     public int getId() {
@@ -76,41 +65,56 @@ public class Wallet
         Repeat = repeat;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public boolean getWallet(){
-//        SimpleDateFormat formatter1=new SimpleDateFormat("dd/MM/yyyy");
+    public boolean checkWallet(String username,Context context)
+    {
         db=new DayPlannerDatabase(context);
         Cursor cursor=db.getWallet(username);
         if(cursor!=null && cursor.getCount() != 0)
-        {
-            this.id= Integer.parseInt(cursor.getString(0));
-            this.budget= Float.parseFloat(cursor.getString(1));
-            this.Repeat= cursor.getString(2);
-//          this.date= formatter1.parse(cursor.getString(3));
-//            cursor.close();
             return false;
-        }
         return true;
+
     }
 
-    public void EditWallet()
+    public Wallet getWallet(String username,Context context)
     {
-        db =new DayPlannerDatabase(this.context);
-        db.ManageWallet(this.budget,this.Repeat,this.username);
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        db=new DayPlannerDatabase(context);
+        Cursor cursor=db.getWallet(username);
+        this.username=username;
+        this.id= Integer.parseInt(cursor.getString(0));
+        this.budget= Float.parseFloat(cursor.getString(1));
+        this.Repeat= cursor.getString(2);
+        this.date= cursor.getString(3);
+
+        return this;
     }
-//    public Date weeklyRepeat(Date date)
+
+    public void AddWallet(String username,float budget,String repeat,String start_date,Context context)
+    {
+        db=new DayPlannerDatabase(context);
+        db.AddNewWallet(budget,repeat,username,start_date);
+    }
+
+    public void EditWallet(String username,float budget,String repeat,String start_date,Context context)
+    {
+        db=new DayPlannerDatabase(context);
+        db.EditWallet(budget,repeat,username,start_date);
+    }
+
+////    public Date weeklyRepeat(Date date)
 //    {
 ////        return date.plus
 //    }
-    public void UpdateDateAutomatically()
-    {
-
-    }
+//    public void UpdateDateAutomatically()
+//    {
+//
+//    }
 }

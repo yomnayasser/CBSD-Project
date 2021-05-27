@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.format.DateFormat;
 
+import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -26,7 +27,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("create table Notes(Notes_ID integer primary key autoincrement ,noteText text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoList(TodoList_ID integer primary key autoincrement ,name text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement ,name text not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,Budget float not null,Repeat text,start_date Text,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
+        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,Budget float not null,Repeat text,start_date text,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
         db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,Category text not null,Amount float not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
     }
@@ -104,23 +105,25 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         }
 
     }
-    public void AddNewWallet(float Budget, String Repeat, String username)
+    public void AddNewWallet(float Budget, String Repeat, String username,String start_date)
     {
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ContentValues row = new ContentValues();
         row.put("user_username",username);
         row.put("Budget",Budget);
         row.put("Repeat",Repeat);
-        //row.put("start_date", String.valueOf(start_date));
+        row.put("start_date", start_date);
         DP_Database=getWritableDatabase();
         DP_Database.insert("Wallet",null,row);
         DP_Database.close();
     }
-    public void EditWallet(float Budget,String Repeat,String username)
+    public void EditWallet(float Budget,String Repeat,String username,String start_date)
     {
+//        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ContentValues row = new ContentValues();
         row.put("Budget",Budget);
         row.put("Repeat",Repeat);
-        //row.put("start_date", String.valueOf(start_date));
+        row.put("start_date", start_date);
         DP_Database=getWritableDatabase();
         DP_Database.update("Wallet",row,"user_username like ?",new String []{username});
         DP_Database.close();
@@ -128,21 +131,11 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
     public Cursor getWallet(String username)
     {
         DP_Database=getReadableDatabase();
-        Cursor cursor = DP_Database.rawQuery("select  wallet_ID,Budget,repeat from Wallet where user_username='"+username+"'",null);
+        Cursor cursor = DP_Database.rawQuery("select  wallet_ID,Budget,repeat,start_date from Wallet where user_username='"+username+"'",null);
         if(cursor!=null)
             cursor.moveToFirst();
         DP_Database.close();
         return cursor;
-    }
-    public void ManageWallet(float Budget, String Repeat, String username)
-    {
-        DP_Database=getReadableDatabase();
-        Cursor cursor =DP_Database.rawQuery("select wallet_ID,Budget,repeat from wallet where user_username= ?",new String []{username});
-        if(cursor==null && cursor.getCount()==0)
-            AddNewWallet(Budget,Repeat,username);
-        else
-            EditWallet(Budget,Repeat,username);
-        DP_Database.close();
     }
     public void UpdateBudget(String username,float new_budget)
     {

@@ -37,26 +37,23 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(i);
         });
         WalletBtn.setOnClickListener(v -> {
-            Wallet w=new Wallet(username,HomeActivity.this);
-            boolean newWallet = w.getWallet();
+            Wallet w=new Wallet();
+            boolean newWallet = w.checkWallet(username,HomeActivity.this);
             if(newWallet==false)
             {
+                Wallet UserWallet=w.getWallet(username,HomeActivity.this);
                 Intent i = new Intent(HomeActivity.this, MyWalletActivity.class);
-                i.putExtra("username",w.getUsername());
-                i.putExtra("id",w.getId());
-                i.putExtra("budget",w.getBudget());
-                i.putExtra("repeat",w.getRepeat());
-//                i.putExtra("date",w.getDate());
+                i.putExtra("username",UserWallet.getUsername());
+                i.putExtra("id",UserWallet.getId());
+                i.putExtra("budget",UserWallet.getBudget());
+                i.putExtra("repeat",UserWallet.getRepeat());
+                i.putExtra("date",UserWallet.getDate());
                 startActivity(i);
             }
             else
             {
                 Intent i = new Intent(HomeActivity.this, AddBudgetActivity.class);
                 i.putExtra("username",username);
-                i.putExtra("id",0);
-                i.putExtra("budget",0);
-                i.putExtra("repeat","None");
-                // i.putExtra("date","");
                 startActivity(i);
             }
         });

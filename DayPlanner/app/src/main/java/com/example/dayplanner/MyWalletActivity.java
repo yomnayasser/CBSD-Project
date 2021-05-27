@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MyWalletActivity extends AppCompatActivity {
 
     @Override
@@ -17,34 +20,27 @@ public class MyWalletActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_wallet);
 
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
         String username=getIntent().getExtras().getString("username");
         int id=getIntent().getExtras().getInt("id");
         Float budget=getIntent().getExtras().getFloat("budget");
         String repeat=getIntent().getExtras().getString("repeat");
-//        Date date=getIntent().getExtras().getString("date");
+        String date=getIntent().getExtras().getString("date");
 
         ImageButton editBudget=(ImageButton)findViewById(R.id.EditBtn);
         FloatingActionButton addExpense=(FloatingActionButton)findViewById(R.id.AddExpenseBtn);
         TextView BudgetAmount=(TextView)findViewById(R.id.textView5);
 
-        Wallet w=new Wallet(username,MyWalletActivity.this);
+        Wallet w=new Wallet();
+        Wallet user_Wallet=w.getWallet(username,MyWalletActivity.this);
 
-        w.setUsername(username);
-        w.setBudget(budget);
-        w.setRepeat(repeat);
-        w.setId(id);
-        w.setContext(MyWalletActivity.this);
-
-        String budgetStr=Float.toString(w.getBudget());
+        String budgetStr=Float.toString(user_Wallet.getBudget());
         BudgetAmount.setText(budgetStr);
 
         editBudget.setOnClickListener(v -> {
             Intent i = new Intent(MyWalletActivity.this, AddBudgetActivity.class);
-            i.putExtra("username",w.getUsername());
-            i.putExtra("id",w.getId());
-            i.putExtra("budget",w.getBudget());
-            i.putExtra("repeat",w.getRepeat());
-            // i.putExtra("date","");
+            i.putExtra("username",username);
             startActivity(i);
         });
 
