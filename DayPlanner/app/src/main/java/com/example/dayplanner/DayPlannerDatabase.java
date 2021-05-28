@@ -24,12 +24,13 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
     public void onCreate(SQLiteDatabase db)
     {
         db.execSQL("create table User(username text primary key ,name text not null,email text not null, password text not null )");
-        db.execSQL("create table Notes(Notes_ID integer primary key autoincrement ,noteText text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table TodoList(TodoList_ID integer primary key autoincrement ,name text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement ,name text not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,totalBudget float not null,currentBudget float not null,Repeat text,start_date text,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
+        db.execSQL("create table Notes(Notes_ID integer primary key autoincrement ,noteText text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
+        db.execSQL("create table TodoList(TodoList_ID integer primary key autoincrement ,name text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
+        db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement ,name text not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
+        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,totalBudget float not null,currentBudget float not null,Repeat text,start_date text,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
         db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,Category text not null,Amount float not null,time text,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
+        db.execSQL("create table CalenderEvents(Calender_ID integer primary key autoincrement ,eventName text not null,eventDate text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
@@ -105,6 +106,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         }
 
     }
+
     public void AddNewWallet(float currentBudget,float totalBudget, String Repeat, String username,String start_date)
     {
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -180,5 +182,28 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database=getWritableDatabase();
         DP_Database.delete("Expenses","expenses_id='"+ExpenseID+"'",null);
         DP_Database.close();
+    }
+
+    public void addEvent(String Name,String Date,String username)
+    {
+        ContentValues row = new ContentValues();
+
+        row.put("eventName",Name);
+        row.put("eventDate",Date);
+        row.put("user_username",username);
+        DP_Database=getWritableDatabase();
+        DP_Database.insert("CalenderEvents",null,row);
+        DP_Database.close();
+    }
+
+    public Cursor getEvents(String username,String date)
+    {
+        DP_Database=getReadableDatabase();
+        Cursor cursor = DP_Database.rawQuery("select eventName from CalenderEvents where user_username='"+ username +"' and eventDate='"+ date+"'",null);
+        if(cursor!=null)
+            cursor.moveToFirst();
+        DP_Database.close();
+        return cursor;
+
     }
 }

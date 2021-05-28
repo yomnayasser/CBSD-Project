@@ -69,54 +69,66 @@
     <!--        app:layout_constraintStart_toEndOf="@+id/in_time"-->
     <!--        app:layout_constraintTop_toBottomOf="@+id/btn_date" />-->
 
-    <Button
-        android:id="@+id/remindersBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="304dp"
-        android:text="Reminders"
-        app:backgroundTint="@color/teal_200"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/todoBtn"
-        android:layout_width="114dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="192dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginRight="148dp"
-        android:text="To Do"
-        app:backgroundTint="@color/teal_200"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home Page"
+            android:layout_marginBottom="80dp"
+            android:textSize="40dp"
+            android:layout_marginLeft="100dp"
+            />
 
-    <Button
-        android:id="@+id/notesBtn"
-        android:layout_width="114dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="416dp"
-        android:layout_marginEnd="152dp"
-        android:layout_marginRight="152dp"
-        android:text="Notes"
-        app:backgroundTint="@color/teal_200"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/remindersBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reminders"
+            app:backgroundTint="@color/teal_200"
+            android:layout_marginLeft="150dp"
+            />
 
-    <Button
-        android:id="@+id/WalletBtn"
-        android:layout_width="114dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginRight="148dp"
-        android:text="Wallet"
-        app:backgroundTint="@color/teal_200"
-        app:layout_constraintEnd_toEndOf="@+id/notesBtn"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/notesBtn"
-        app:layout_constraintTop_toBottomOf="@+id/notesBtn" />
+        <Button
+            android:id="@+id/todoBtn"
+            android:layout_width="114dp"
+            android:layout_height="45dp"
+            android:text="To Do"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="150dp"
+            app:backgroundTint="@color/teal_200" />
+
+        <Button
+            android:id="@+id/notesBtn"
+            android:layout_width="114dp"
+            android:layout_height="45dp"
+            android:text="Notes"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="150dp"
+            app:backgroundTint="@color/teal_200" />
+
+        <Button
+            android:id="@+id/WalletBtn"
+            android:layout_width="114dp"
+            android:layout_height="45dp"
+            android:text="Wallet"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="150dp"
+            app:backgroundTint="@color/teal_200" />
+
+        <Button
+            android:id="@+id/CalenderBtn"
+            android:layout_width="114dp"
+            android:layout_height="45dp"
+            android:text="Calender"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="150dp"
+            app:backgroundTint="@color/teal_200" />
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
