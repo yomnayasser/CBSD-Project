@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".calenderActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="69dp"
+            android:text="My Calender"
+            android:textSize="35dp"
+            android:paddingTop="20dp"
+            android:paddingLeft="130dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:layout_marginTop="20dp"
+            >
+
+            <Button
+                android:id="@+id/AddEvent_btn"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Add New Event" />
+
+            <Button
+                android:id="@+id/AddReminder_btn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="Add Reminder" />
+        </LinearLayout>
+
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView
+            android:id="@+id/compactcalendar_view"
+            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            app:compactCalendarBackgroundColor="@color/white"
+            app:compactCalendarCurrentDayBackgroundColor=" #add8e6"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
+            app:compactCalendarMultiEventIndicatorColor="@color/black"
+            app:compactCalendarTargetHeight="250dp"
+            app:compactCalendarTextColor="@color/black"
+            app:compactCalendarTextSize="12sp"
+            tools:ignore="MissingConstraints" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="101dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ListView
+                    android:id="@+id/EventsList"
+                    android:layout_width="match_parent"
+                    android:layout_height="99dp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <EditText
+            android:id="@+id/NewEvent_text"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="  Enter New Event Name"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/save_btn"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="140dp"
+            android:text="Save" />
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/textViewExpenses"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:visibility="gone"-->
+        <!--            android:textColor="#FF0000"-->
+        <!--            android:text="Expenses" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/textViewReminder"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:visibility="gone"-->
+        <!--            android:textColor="#FFFF00"-->
+        <!--            android:text="Reminder" />-->
+
+        <!--        <TextView-->
+        <!--            android:id="@+id/textViewEvent"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:visibility="gone"-->
+        <!--            android:textColor="#00FF00"-->
+<!--        android:text="Event" />-->
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
