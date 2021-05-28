@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">Day Planner</string>
+    <string-array name="Categories">
+        <item>Clothing</item>
+        <item>Education</item>
+        <item>Food</item>
+        <item>Health</item>
+        <item>Home needs</item>
+        <item>Personal Care</item>
+        <item>Taxes</item>
+        <item>Transportation</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="RepeatingTime">
+        <item>None</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+    </string-array>
 </resources>

@@ -73,6 +73,7 @@
         android:layout_width="384dp"
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
+        android:entries="@array/RepeatingTime"
         app:layout_constraintEnd_toEndOf="@+id/textView3"
         app:layout_constraintHorizontal_bias="0.018"
         app:layout_constraintStart_toStartOf="@+id/textView3"

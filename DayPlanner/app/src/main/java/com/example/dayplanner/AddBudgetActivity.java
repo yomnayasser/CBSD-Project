@@ -32,14 +32,7 @@ public class AddBudgetActivity extends AppCompatActivity {
         String repeat=getIntent().getExtras().getString("repeat");
         String DateAdded=getIntent().getExtras().getString("date");
 
-        Spinner spinner = findViewById(R.id.RepeatSpinner);
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("None");
-        arrayList.add("Weekly");
-        arrayList.add("Monthly");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, arrayList);
-        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(arrayAdapter);
+        final Spinner spinner=(Spinner)findViewById(R.id.RepeatSpinner);
 
         EditText BudgetText=(EditText)findViewById(R.id.budgetEditTxt);
         EditText StartDate=(EditText)findViewById(R.id.DateEditTxt);

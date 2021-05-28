@@ -25,12 +25,15 @@
         android:layout_height="69dp"
         android:layout_marginTop="4dp"
         android:text="TextView"
+        android:textSize="30dp"
+        android:paddingLeft="20dp"
+        android:paddingTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:layout_width="415dp"
-        android:layout_height="568dp"
+        android:layout_width="419dp"
+        android:layout_height="569dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="@+id/EditBtn"
         app:layout_constraintStart_toStartOf="@+id/textView5"

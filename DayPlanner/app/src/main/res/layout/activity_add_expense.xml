@@ -22,8 +22,8 @@
         android:id="@+id/textView6"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_marginTop="60dp"
-        android:text="Amount"
+        android:layout_marginTop="176dp"
+        android:text="Price"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="@+id/textView4"
         app:layout_constraintHorizontal_bias="0.0"
@@ -34,7 +34,7 @@
         android:id="@+id/textView7"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:text="Date"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="@+id/textView6"
@@ -43,41 +43,28 @@
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <EditText
-        android:id="@+id/CategoryTxt"
-        android:layout_width="260dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/DateTxt"
-        android:layout_width="260dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="56dp"
+        android:id="@+id/ExpenseDateEditTxt"
+        android:layout_width="238dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView7"
-        app:layout_constraintTop_toBottomOf="@+id/AmountText" />
+        app:layout_constraintTop_toBottomOf="@+id/PriceText" />
 
     <EditText
-        android:id="@+id/AmountText"
-        android:layout_width="260dp"
-        android:layout_height="54dp"
-        android:layout_marginTop="56dp"
+        android:id="@+id/PriceText"
+        android:layout_width="240dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="156dp"
         android:ems="10"
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/CategoryTxt" />
+        app:layout_constraintTop_toBottomOf="@+id/CategoriesSpinner" />
 
     <Button
         android:id="@+id/SaveExpenseBtn"
@@ -87,9 +74,44 @@
         android:text="Save"
         android:textSize="30dp"
         android:backgroundTint="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/DateTxt"
+        app:layout_constraintEnd_toEndOf="@+id/ExpenseDateEditTxt"
         app:layout_constraintHorizontal_bias="0.339"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <Spinner
+        android:id="@+id/CategoriesSpinner"
+        android:layout_width="373dp"
+        android:layout_height="20dp"
+        android:entries="@array/Categories"
+        app:layout_constraintEnd_toEndOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/OtherCategoryTxt"
+        android:layout_width="202dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="48dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        app:layout_constraintEnd_toEndOf="@+id/CategoriesSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/CategoriesSpinner" />
+
+    <TextView
+        android:id="@+id/OtherLabel"
+        android:layout_width="79dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginTop="28dp"
+        android:text="Other:"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="@+id/CategoriesSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/CategoriesSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
