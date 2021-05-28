@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         signIn_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String Username = username.getText().toString();
                 String Password = password.getText().toString();
                 UserClass user = new UserClass(Username,Password,MainActivity.this);
@@ -124,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Toast.makeText(MainActivity.this,"Username does not exist,Please Signup",Toast.LENGTH_LONG).show();
                 }
-
+                
 
             }
         });
