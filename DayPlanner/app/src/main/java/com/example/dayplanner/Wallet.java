@@ -1,23 +1,21 @@
 package com.example.dayplanner;
 
-import android.app.AlarmManager;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Build;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.annotation.RequiresApi;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 public class Wallet
 {
     private int id;
-    private float budget;
+    private float totalBudget;
+    private float currentBudget;
     private String Repeat;
     private String date;
     private String username;
@@ -26,19 +24,11 @@ public class Wallet
     {
     }
 
-    public Wallet(float budget, String repeat, String username,String start_date) {
-        this.budget = budget;
+    public Wallet(float totalBudget, float currentBudget, String repeat, String start_date) {
+        this.totalBudget = totalBudget;
+        this.currentBudget=currentBudget;
         this.Repeat = repeat;
         this.date = start_date;
-        this.username=username;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public int getId() {
@@ -49,12 +39,20 @@ public class Wallet
         this.id = id;
     }
 
-    public float getBudget() {
-        return budget;
+    public float getTotalBudget() {
+        return totalBudget;
     }
 
-    public void setBudget(float budget) {
-        this.budget = budget;
+    public void setTotalBudget(float budget) {
+        this.totalBudget = budget;
+    }
+
+    public float getCurrentBudget() {
+        return currentBudget;
+    }
+
+    public void setCurrentBudget(float currentBudget) {
+        this.currentBudget = currentBudget;
     }
 
     public String getRepeat() {
@@ -80,7 +78,6 @@ public class Wallet
         if(cursor!=null && cursor.getCount() != 0)
             return false;
         return true;
-
     }
 
     public Wallet getWallet(String username,Context context)
@@ -90,31 +87,74 @@ public class Wallet
         Cursor cursor=db.getWallet(username);
         this.username=username;
         this.id= Integer.parseInt(cursor.getString(0));
-        this.budget= Float.parseFloat(cursor.getString(1));
-        this.Repeat= cursor.getString(2);
-        this.date= cursor.getString(3);
+        this.totalBudget= Float.parseFloat(cursor.getString(1));
+        this.currentBudget= Float.parseFloat(cursor.getString(2));
+        this.Repeat= cursor.getString(3);
+        this.date= cursor.getString(4);
 
         return this;
     }
 
-    public void AddWallet(String username,float budget,String repeat,String start_date,Context context)
+    public void AddWallet(String username,float currentBudget,float totalBudget,String repeat,String start_date,Context context)
     {
         db=new DayPlannerDatabase(context);
-        db.AddNewWallet(budget,repeat,username,start_date);
+        db.AddNewWallet(currentBudget,totalBudget,repeat,username,start_date);
+        getWallet(username,context);
     }
 
-    public void EditWallet(String username,float budget,String repeat,String start_date,Context context)
+    public void EditWallet(String username,float totalBudget,String repeat,String start_date,Context context)
     {
         db=new DayPlannerDatabase(context);
-        db.EditWallet(budget,repeat,username,start_date);
+        db.EditWallet(totalBudget,repeat,username,start_date);
+        getWallet(username,context);
+    }
+    public void BudgetRefill(String username,float currentBudget,String new_date,Context context)
+    {
+        db=new DayPlannerDatabase(context);
+        db.UpdateBudget(username,currentBudget,new_date);
     }
 
-////    public Date weeklyRepeat(Date date)
-//    {
-////        return date.plus
-//    }
-//    public void UpdateDateAutomatically()
-//    {
-//
-//    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void RepeatWeekly(Context context)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+        LocalDate activeDate= LocalDate.now();
+        LocalDate dateBudgetEntered = LocalDate.parse(date,formatter);
+        long differenceBetweenDates = ChronoUnit.WEEKS.between(dateBudgetEntered,activeDate);
+        int difference=(int)differenceBetweenDates;
+
+        if(difference==1)
+        {
+            date=activeDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            currentBudget = currentBudget+totalBudget;
+            BudgetRefill(username,currentBudget,date,context);
+        }
+        else if(difference>1)
+        {
+            date=activeDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            currentBudget = currentBudget+(totalBudget*difference);
+            BudgetRefill(username,currentBudget,date,context);
+        }
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void RepeatMonthly(Context context)
+    {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy", Locale.ENGLISH);
+        LocalDate activeDate= LocalDate.now();
+        LocalDate dateBudgetEntered = LocalDate.parse(date,formatter);
+        long differenceBetweenDates = ChronoUnit.MONTHS.between(dateBudgetEntered,activeDate);
+        int difference=(int)differenceBetweenDates;
+        if(difference==1)
+        {
+            date=activeDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            currentBudget = currentBudget+totalBudget;
+            BudgetRefill(username,currentBudget,date,context);
+        }
+        else if(difference>1)
+        {
+            date=activeDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            currentBudget = currentBudget+(totalBudget*difference);
+            BudgetRefill(username,currentBudget,date,context);
+        }
+    }
 }

@@ -27,9 +27,9 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("create table Notes(Notes_ID integer primary key autoincrement ,noteText text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoList(TodoList_ID integer primary key autoincrement ,name text not null,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement ,name text not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,Budget float not null,Repeat text,start_date text,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
+        db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,totalBudget float not null,currentBudget float not null,Repeat text,start_date text,user_username integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
-        db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,Category text not null,Amount float not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
+        db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,Category text not null,Amount float not null,time text,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
@@ -105,23 +105,24 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         }
 
     }
-    public void AddNewWallet(float Budget, String Repeat, String username,String start_date)
+    public void AddNewWallet(float currentBudget,float totalBudget, String Repeat, String username,String start_date)
     {
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ContentValues row = new ContentValues();
         row.put("user_username",username);
-        row.put("Budget",Budget);
+        row.put("totalBudget",totalBudget);
+        row.put("currentBudget",currentBudget);
         row.put("Repeat",Repeat);
         row.put("start_date", start_date);
         DP_Database=getWritableDatabase();
         DP_Database.insert("Wallet",null,row);
         DP_Database.close();
     }
-    public void EditWallet(float Budget,String Repeat,String username,String start_date)
+    public void EditWallet(float totalBudget,String Repeat,String username,String start_date)
     {
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ContentValues row = new ContentValues();
-        row.put("Budget",Budget);
+        row.put("totalBudget",totalBudget);
         row.put("Repeat",Repeat);
         row.put("start_date", start_date);
         DP_Database=getWritableDatabase();
@@ -131,36 +132,36 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
     public Cursor getWallet(String username)
     {
         DP_Database=getReadableDatabase();
-        Cursor cursor = DP_Database.rawQuery("select  wallet_ID,Budget,repeat,start_date from Wallet where user_username='"+username+"'",null);
+        Cursor cursor = DP_Database.rawQuery("select  wallet_ID,totalBudget,currentBudget,repeat,start_date from Wallet where user_username='"+username+"'",null);
         if(cursor!=null)
             cursor.moveToFirst();
         DP_Database.close();
         return cursor;
     }
-    public void UpdateBudget(String username,float new_budget)
+    public void UpdateBudget(String username,float new_budget,String new_date)
     {
         ContentValues row = new ContentValues();
-        row.put("Budget",new_budget);
-
+        row.put("currentBudget",new_budget);
+        row.put("start_date",new_date);
         DP_Database=getWritableDatabase();
         DP_Database.update("Wallet",row,"user_username like ?",new String []{username});
         DP_Database.close();
     }
-    public float getBudget(String username)
-    {
-        DP_Database=getReadableDatabase();
-        Cursor cursor = DP_Database.rawQuery("select Budget from Wallet where username='"+ username +"'",null);
-
-        DP_Database.close();
-        return Float.parseFloat(cursor.getString(0));
-    }
-    public void AddExpense(int walletID, String category, float amount, DateTimeFormatter date)
+//    public float getBudget(String username)
+//    {
+//        DP_Database=getReadableDatabase();
+//        Cursor cursor = DP_Database.rawQuery("select currentBudget from Wallet where username='"+ username +"'",null);
+//
+//        DP_Database.close();
+//        return Float.parseFloat(cursor.getString(0));
+//    }
+    public void AddExpense(int walletID, String category, float amount, String time)
     {
         ContentValues row = new ContentValues();
         row.put("Wallet_ID",walletID);
         row.put("Category",category);
         row.put("Amount",amount);
-        row.put("time", String.valueOf(date));
+        row.put("time", time);
         DP_Database=getWritableDatabase();
         DP_Database.insert("Expenses",null,row);
         DP_Database.close();

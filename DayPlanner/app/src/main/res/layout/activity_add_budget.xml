@@ -37,6 +37,7 @@
         android:layout_marginTop="24dp"
         android:text="Repeat:"
         android:textSize="30dp"
+        android:focusableInTouchMode="false"
         app:layout_constraintEnd_toEndOf="@+id/DateEditTxt"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/DateEditTxt"
