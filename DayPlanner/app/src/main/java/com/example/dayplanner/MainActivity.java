@@ -33,15 +33,28 @@ public class MainActivity extends AppCompatActivity {
         signIn_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String Username = username.getText().toString();
                 String Password = password.getText().toString();
                 UserClass user = new UserClass(Username,Password,MainActivity.this);
 
                 String Result = user.Login();
-                Toast.makeText(MainActivity.this,Result,Toast.LENGTH_LONG).show();
-                Intent i = new Intent(MainActivity.this,HomeActivity.class);
-                i.putExtra("username",user.getUsername());
-                startActivity(i);
+                if(Result=="false")
+                {
+                    Toast.makeText(MainActivity.this,"Wrong Username or Password",Toast.LENGTH_LONG).show();
+                }
+                else if(Result=="true")
+                {
+                    Toast.makeText(MainActivity.this," Login Successfully",Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(MainActivity.this,HomeActivity.class);
+                    i.putExtra("username",user.getUsername());
+                    startActivity(i);
+                }
+                else if(Result=="Not found")
+                {
+                    Toast.makeText(MainActivity.this,"Username does not exist,Please Signup",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
 
