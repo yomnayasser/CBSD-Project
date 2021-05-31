@@ -2,9 +2,7 @@ package com.example.dayplanner;
 
 import android.content.Context;
 import android.database.Cursor;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class Expenses
 {
@@ -97,7 +95,15 @@ public class Expenses
             all.add(e);
             c.moveToNext();
         }
-//        return AllExpenses;
     }
-
+    public void DeleteExpense(int Expense_id,Context context)
+    {
+        db=new DayPlannerDatabase(context);
+        db.deleteExpense(Expense_id);
+    }
+    public void EditExpense(int ExpenseID,String name,String Category,float price,String date,Context context)
+    {
+        db=new DayPlannerDatabase(context);
+        db.EditExpense(ExpenseID,name,Category,price,date);
+    }
 }

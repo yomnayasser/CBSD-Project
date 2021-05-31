@@ -2,14 +2,11 @@ package com.example.dayplanner;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -17,20 +14,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.jar.Attributes;
 
 public class AddExpenseActivity extends AppCompatActivity {
 
@@ -39,6 +29,12 @@ public class AddExpenseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_expense);
+
+        int Exp_ID = 0;
+        String Exp_name;
+        String Exp_category;
+        float Exp_price = 0;
+        String Exp_date;
 
         String username=getIntent().getExtras().getString("username");
         int id=getIntent().getExtras().getInt("id");
@@ -58,10 +54,24 @@ public class AddExpenseActivity extends AppCompatActivity {
         EditText ExpenseDate=(EditText)findViewById(R.id.ExpenseDateEditTxt);
         ExpenseDate.setFocusable(false);
         ExpenseDate.setKeyListener(null);
-
         LocalDateTime timeNow=LocalDateTime.now();
         String timeNowStr=formatter.format(Date.from(timeNow.atZone(ZoneId.systemDefault()).toInstant()));
         ExpenseDate.setText(timeNowStr);
+
+        boolean editMode=getIntent().getExtras().getBoolean("Editmode");
+        if(editMode==true)
+        {
+            Exp_ID=getIntent().getExtras().getInt("ExpensesID");
+            Exp_name=getIntent().getExtras().getString("Expensename");
+            Exp_category=getIntent().getExtras().getString("ExpenseCategory");
+            Exp_price=getIntent().getExtras().getFloat("ExpensePrice");
+            Exp_date=getIntent().getExtras().getString("ExpenseDate");
+
+            ExpenseName.setText(Exp_name);
+            Price.setText(String.valueOf(Exp_price));
+            ExpenseDate.setText(Exp_date);
+            CategoriesSpinner.setSelection(((ArrayAdapter<String>)CategoriesSpinner.getAdapter()).getPosition(Exp_category));
+        }
 
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -82,7 +92,6 @@ public class AddExpenseActivity extends AppCompatActivity {
                 ExpenseDate.setText(formatter.format(myCalendar.getTime()));
             }
         };
-        //LocalDateTime DetailedDate = LocalDateTime.parse(myCalendar.getTime().toString(),formatter);
 
         ExpenseDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +121,8 @@ public class AddExpenseActivity extends AppCompatActivity {
         });
         Button save=(Button)findViewById(R.id.SaveExpenseBtn);
         Expenses e=new Expenses();
+        int finalExp_ID = Exp_ID;
+        float finalExp_price = Exp_price;
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -135,7 +146,13 @@ public class AddExpenseActivity extends AppCompatActivity {
                     else
                     {
                         Wallet wallet=new Wallet();
-                        float new_budget=wallet.EditCurrentBudget(id,Currentbudget,ExpPrice,AddExpenseActivity.this);
+                        float new_budget=wallet.EditCurrentBudget(id,Currentbudget,ExpPrice,false,AddExpenseActivity.this);
+                        if(editMode==true)
+                        {
+                            wallet.getWallet(username,AddExpenseActivity.this);
+                            new_budget=wallet.EditCurrentBudget(wallet.getId(),wallet.getCurrentBudget(), finalExp_price,true,AddExpenseActivity.this);
+                            e.DeleteExpense(finalExp_ID,AddExpenseActivity.this);
+                        }
                         e.AddNewExpense(id, Name, category, ExpPrice, ExpenseDate.getText().toString(), AddExpenseActivity.this);
                         Intent i=new Intent(AddExpenseActivity.this,MyWalletActivity.class);
                         otherCategory.setVisibility(otherCategory.INVISIBLE);

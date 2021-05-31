@@ -101,16 +101,21 @@ public class Wallet
         getWallet(username,context);
     }
 
-    public void EditWallet(String username,float totalBudget,String repeat,String start_date,Context context)
+    public void EditWallet(String username,float currentBudget,float totalBudget,String repeat,String start_date,Context context)
     {
         db=new DayPlannerDatabase(context);
-        db.EditWallet(totalBudget,repeat,username,start_date);
+        db.EditWallet(totalBudget,currentBudget,repeat,username,start_date);
         getWallet(username,context);
     }
-    public float EditCurrentBudget(int id,float currentBudget,float price,Context context)
+    public float EditCurrentBudget(int id,float currentBudget,float price,boolean add,Context context)
     {
         db=new DayPlannerDatabase(context);
-        float newBudget=currentBudget-price;
+        float newBudget;
+        if(add==true)
+            newBudget=currentBudget+price;
+        else
+            newBudget=currentBudget-price;
+
         db.UpdateCurrentBudget(id,newBudget);
         return newBudget;
     }

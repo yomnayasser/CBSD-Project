@@ -120,11 +120,12 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.insert("Wallet",null,row);
         DP_Database.close();
     }
-    public void EditWallet(float totalBudget,String Repeat,String username,String start_date)
+    public void EditWallet(float totalBudget,float currentBudget,String Repeat,String username,String start_date)
     {
 //        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ContentValues row = new ContentValues();
         row.put("totalBudget",totalBudget);
+        row.put("currentBudget",currentBudget);
         row.put("Repeat",Repeat);
         row.put("start_date", start_date);
         DP_Database=getWritableDatabase();
@@ -183,6 +184,18 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
     {
         DP_Database=getWritableDatabase();
         DP_Database.delete("Expenses","expenses_id='"+ExpenseID+"'",null);
+        DP_Database.close();
+    }
+    public void EditExpense(int ExpenseID,String name,String Category,float price,String date)
+    {
+        String [] arg ={String.valueOf(ExpenseID)};
+        ContentValues row = new ContentValues();
+        row.put("Name",name);
+        row.put("Category",Category);
+        row.put("Amount",price);
+        row.put("time", date);
+        DP_Database=getWritableDatabase();
+        DP_Database.update("Expenses",row,"Expenses_ID like ?",arg);
         DP_Database.close();
     }
 

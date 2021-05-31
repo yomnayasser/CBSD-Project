@@ -60,11 +60,7 @@ public class HomeActivity extends AppCompatActivity {
                 i.putExtra("current_budget",UserWallet.getCurrentBudget());
                 i.putExtra("repeat",UserWallet.getRepeat());
                 i.putExtra("date",UserWallet.getDate());
-
-                //
                 i.putExtra("new_wallet",newWallet);
-                //
-
                 startActivity(i);
             }
             else

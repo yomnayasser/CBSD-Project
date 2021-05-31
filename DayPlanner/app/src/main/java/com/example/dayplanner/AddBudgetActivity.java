@@ -6,15 +6,14 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
+
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
+
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddBudgetActivity extends AppCompatActivity {
@@ -102,15 +101,22 @@ public class AddBudgetActivity extends AppCompatActivity {
                     String enteredDate = StartDate.getText().toString();
 
                     Wallet w=new Wallet();
-
+                    Intent i=new Intent(AddBudgetActivity.this,MyWalletActivity.class);
                     if(new_wallet==true)
                         w.AddWallet(username,currentBudget,enteredBudget,RepeatON,enteredDate,AddBudgetActivity.this);
                     else
                     {
-                        w.EditWallet(username  ,enteredBudget,RepeatON,enteredDate,AddBudgetActivity.this);
+                        if(RepeatON.equals("None"))
+                        {
+                            w.EditWallet(username ,currentBudget,enteredBudget,RepeatON,enteredDate,AddBudgetActivity.this);
+                        }
+                        else
+                        {
+                            w.EditWallet(username ,CurrentBudget,enteredBudget,RepeatON,enteredDate,AddBudgetActivity.this);
+                        }
                         MyWalletActivity.a.finish();
                     }
-                    Intent i=new Intent(AddBudgetActivity.this,MyWalletActivity.class);
+
                     i.putExtra("username",username);
                     i.putExtra("id",w.getId());
                     i.putExtra("total_budget",w.getTotalBudget());
