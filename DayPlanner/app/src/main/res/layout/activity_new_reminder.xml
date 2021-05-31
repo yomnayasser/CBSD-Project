@@ -91,13 +91,13 @@
         android:id="@+id/fsaverem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         app:backgroundTint="#4CAF50"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="#FFFFFF"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
@@ -105,14 +105,14 @@
         android:id="@+id/fdelrem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="35dp"
-        android:layout_marginRight="35dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginLeft="29dp"
         android:layout_marginBottom="16dp"
         android:clickable="true"
         android:tint="#EF5151"
         app:backgroundTint="#CA0303"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@android:drawable/ic_notification_clear_all" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,7 +32,6 @@ public class NewReminderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_reminder);
 
-//        username = getIntent().getExtras().getString("username");
         username=getIntent().getExtras().getString("username");
         btnDatePicker=(Button)findViewById(R.id.btn_date);
         btnTimePicker=(Button)findViewById(R.id.btn_time);
@@ -115,6 +115,7 @@ public class NewReminderActivity extends AppCompatActivity {
                     db.UpdateReminder(username, rID, txtName.getText().toString(), txtDate.getText().toString(), txtTime.getText().toString());
 
                 Intent i = new Intent(NewReminderActivity.this, RemindersActivity.class);
+                i.putExtra("username", username);
                 startActivity(i);
             }
         });
@@ -126,6 +127,7 @@ public class NewReminderActivity extends AppCompatActivity {
                 db.DeleteReminder(rID);
 
                 Intent i = new Intent(NewReminderActivity.this, RemindersActivity.class);
+                i.putExtra("username", username);
                 startActivity(i);
             }
         });

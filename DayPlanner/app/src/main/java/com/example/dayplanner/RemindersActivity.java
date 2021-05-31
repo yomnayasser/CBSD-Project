@@ -29,7 +29,6 @@ public class RemindersActivity extends AppCompatActivity implements RemindersAda
     private RecyclerView recyclerView;
     private RemindersAdapter remindersAdapter;
     private List<Reminder> reminders;
-    TextView tst;
     String username;
 
     @Override
@@ -37,7 +36,6 @@ public class RemindersActivity extends AppCompatActivity implements RemindersAda
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminders);
 
-//        username = "username"; // getExtra() from previous activity
         username=getIntent().getExtras().getString("username");
 
         getSupportActionBar().hide();
@@ -48,7 +46,7 @@ public class RemindersActivity extends AppCompatActivity implements RemindersAda
         recyclerView.setAdapter(remindersAdapter);
 
         DayPlannerDatabase db = new DayPlannerDatabase(this);
-        Cursor cursor = db.fetchAllReminders("username");
+        Cursor cursor = db.fetchAllReminders(username);
 
         while(!cursor.isAfterLast())
         {
@@ -71,34 +69,13 @@ public class RemindersActivity extends AppCompatActivity implements RemindersAda
             public void onClick(View v) {
                 Intent i = new Intent(RemindersActivity.this, NewReminderActivity.class);
                 i.putExtra("AddReminder", true);
-
+                i.putExtra("username", username);
                 startActivity(i);
             }
         });
 
 
     }
-
-//    @Override
-//    protected void onResume() {
-//        DayPlannerDatabase db = new DayPlannerDatabase(this);
-//        Cursor cursor = db.fetchAllReminders("username");
-//        remindersAdapter = new RemindersAdapter(this, this);
-//
-//        while(!cursor.isAfterLast())
-//        {
-//            Reminder rem = new Reminder();
-//            rem.setrName(cursor.getString(0));
-//            rem.setrDate(cursor.getString(1));
-//            rem.setrTime(cursor.getString(2));
-//            rem.setrID(String.valueOf(cursor.getInt(3)));
-//            reminders.add(rem);
-//            cursor.moveToNext();
-//        }
-////remindersAdapter.notifyDataSetChanged();
-//        remindersAdapter.setReminder(reminders);
-//        super.onResume();
-//    }
 
     @Override
     public void myOnClick(int position) {
