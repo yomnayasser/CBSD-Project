@@ -101,9 +101,4 @@ public class Expenses
         db=new DayPlannerDatabase(context);
         db.deleteExpense(Expense_id);
     }
-    public void EditExpense(int ExpenseID,String name,String Category,float price,String date,Context context)
-    {
-        db=new DayPlannerDatabase(context);
-        db.EditExpense(ExpenseID,name,Category,price,date);
-    }
 }
