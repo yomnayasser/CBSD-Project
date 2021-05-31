@@ -23,7 +23,6 @@ public class Wallet
     public Wallet()
     {
     }
-
     public Wallet(float totalBudget, float currentBudget, String repeat, String start_date) {
         this.totalBudget = totalBudget;
         this.currentBudget=currentBudget;
@@ -107,6 +106,13 @@ public class Wallet
         db=new DayPlannerDatabase(context);
         db.EditWallet(totalBudget,repeat,username,start_date);
         getWallet(username,context);
+    }
+    public float EditCurrentBudget(int id,float currentBudget,float price,Context context)
+    {
+        db=new DayPlannerDatabase(context);
+        float newBudget=currentBudget-price;
+        db.UpdateCurrentBudget(id,newBudget);
+        return newBudget;
     }
     public void BudgetRefill(String username,float currentBudget,String new_date,Context context)
     {

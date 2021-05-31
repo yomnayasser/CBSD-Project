@@ -24,31 +24,44 @@
         android:layout_width="338dp"
         android:layout_height="69dp"
         android:layout_marginTop="4dp"
-        android:text="TextView"
-        android:textSize="30dp"
         android:paddingLeft="20dp"
         android:paddingTop="20dp"
+        android:text="TextView"
+        android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ListView
-        android:layout_width="419dp"
-        android:layout_height="569dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/EditBtn"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/AddExpenseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#838080"
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:layout_marginRight="16dp" />
+        app:srcCompat="@android:drawable/ic_input_add" />
+
+    <TextView
+        android:id="@+id/messageTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have no expenses"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+    <ListView
+        android:id="@+id/ExpensesList"
+        android:layout_width="364dp"
+        android:layout_height="574dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5">
+
+    </ListView>
 </androidx.constraintlayout.widget.ConstraintLayout>

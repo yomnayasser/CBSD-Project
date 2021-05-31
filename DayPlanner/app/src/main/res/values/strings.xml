@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Day Planner</string>
     <string-array name="Categories">
+        <item>Select Category</item>
         <item>Clothing</item>
         <item>Education</item>
         <item>Food</item>

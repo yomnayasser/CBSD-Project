@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DayPlanner">
+
         <activity android:name=".calenderActivity"></activity>
         <activity android:name=".AddExpenseActivity" />
         <activity android:name=".MyWalletActivity" />

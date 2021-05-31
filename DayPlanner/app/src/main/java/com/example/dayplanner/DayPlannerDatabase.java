@@ -17,7 +17,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
     SQLiteDatabase DP_Database;
     public DayPlannerDatabase(Context context)
     {
-        super(context,databaseName,null,1);
+        super(context,databaseName,null,2);
     }
 
     @Override
@@ -29,7 +29,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement ,name text not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
         db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,totalBudget float not null,currentBudget float not null,Repeat text,start_date text,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
-        db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,Category text not null,Amount float not null,time text,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
+        db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,name text not null,Category text not null,Amount float not null,time text,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
         db.execSQL("create table CalenderEvents(Calender_ID integer primary key autoincrement ,eventName text not null,eventDate text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
     }
     @Override
@@ -134,7 +134,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
     public Cursor getWallet(String username)
     {
         DP_Database=getReadableDatabase();
-        Cursor cursor = DP_Database.rawQuery("select  wallet_ID,totalBudget,currentBudget,repeat,start_date from Wallet where user_username='"+username+"'",null);
+        Cursor cursor = DP_Database.rawQuery("select wallet_ID,totalBudget,currentBudget,repeat,start_date from Wallet where user_username='"+username+"'",null);
         if(cursor!=null)
             cursor.moveToFirst();
         DP_Database.close();
@@ -149,21 +149,23 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.update("Wallet",row,"user_username like ?",new String []{username});
         DP_Database.close();
     }
-//    public float getBudget(String username)
-//    {
-//        DP_Database=getReadableDatabase();
-//        Cursor cursor = DP_Database.rawQuery("select currentBudget from Wallet where username='"+ username +"'",null);
-//
-//        DP_Database.close();
-//        return Float.parseFloat(cursor.getString(0));
-//    }
-    public void AddExpense(int walletID, String category, float amount, String time)
+    public void UpdateCurrentBudget(int Wallet_ID,float new_budget)
+    {
+        String [] arg ={String.valueOf(Wallet_ID)};
+        ContentValues row = new ContentValues();
+        row.put("currentBudget",new_budget);
+        DP_Database=getWritableDatabase();
+        DP_Database.update("Wallet",row,"Wallet_ID like ?",arg);
+        DP_Database.close();
+    }
+    public void AddExpense(int walletID,String name, String category, float amount, String time)
     {
         ContentValues row = new ContentValues();
-        row.put("Wallet_ID",walletID);
+        row.put("Name",name);
         row.put("Category",category);
         row.put("Amount",amount);
         row.put("time", time);
+        row.put("WalletID",walletID);
         DP_Database=getWritableDatabase();
         DP_Database.insert("Expenses",null,row);
         DP_Database.close();
@@ -171,9 +173,9 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
     public Cursor getAllExpenses(int walletID)
     {
         DP_Database=getReadableDatabase();
-        Cursor cursor = DP_Database.rawQuery("select amount,category,time from expenses where wallet_id='"+walletID+"'",null);
-        if(cursor!=null)
-            cursor.moveToFirst();
+        String [] arg ={String.valueOf(walletID)};
+        Cursor cursor = DP_Database.rawQuery("select Expenses_ID, name, category, amount, time from expenses where walletid like ?",arg);
+        cursor.moveToFirst();
         DP_Database.close();
         return cursor;
     }
