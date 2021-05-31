@@ -27,6 +27,7 @@ public class HomeActivity extends AppCompatActivity {
 
         remindersBtn.setOnClickListener(v -> {
             Intent i = new Intent(HomeActivity.this, RemindersActivity.class);
+            i.putExtra("username",username);
             startActivity(i);
         });
 

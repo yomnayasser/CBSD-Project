@@ -26,7 +26,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("create table User(username text primary key ,name text not null,email text not null, password text not null )");
         db.execSQL("create table Notes(Notes_ID integer primary key autoincrement ,noteText text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoList(TodoList_ID integer primary key autoincrement ,name text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement ,name text not null,time  DATETIME DEFAULT CURRENT_TIMESTAMP,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
+        db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement, reminder_name text, reminder_date text, reminder_time text, user_username text, FOREIGN KEY(user_username) REFERENCES User(username))");
         db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,totalBudget float not null,currentBudget float not null,Repeat text,start_date text,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
         db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,name text not null,Category text not null,Amount float not null,time text,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
@@ -220,5 +220,50 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.close();
         return cursor;
 
+    }
+
+    // REMINDERS FUNCTIONS
+    public Cursor fetchAllReminders(String username)
+    {
+        DP_Database=getReadableDatabase();
+        String [] arg={username};
+//        Cursor cursor= DP_Database.query("Reminder",rowDetails,null,null,null,null,null);
+        Cursor cursor = DP_Database.rawQuery("SELECT reminder_name, reminder_date, reminder_time, Reminder_ID FROM Reminder where user_username like ?",arg);
+        if(cursor!=null)
+        {
+            cursor.moveToFirst();
+        }
+        DP_Database.close();
+        return cursor;
+    }
+
+    public void AddReminder(String username, String reminderName, String date, String time)
+    {
+        ContentValues row = new ContentValues();
+        row.put("user_username", username);
+        row.put("reminder_name", reminderName);
+        row.put("reminder_date",date);
+        row.put("reminder_time",time);
+        DP_Database=getWritableDatabase();
+        DP_Database.insert("Reminder",null,row);
+        DP_Database.close();
+    }
+
+    public void UpdateReminder(String username, String rID, String newName, String newDate, String newTime)
+    {
+        ContentValues row = new ContentValues();
+        row.put("reminder_name", newName);
+        row.put("reminder_date",newDate);
+        row.put("reminder_time",newTime);
+        DP_Database=getWritableDatabase();
+        DP_Database.update("Reminder",row,"user_username like ? and Reminder_ID like ?", new String []{username, rID});
+        DP_Database.close();
+    }
+
+    public void DeleteReminder(String rID)
+    {
+        DP_Database=getWritableDatabase();
+        DP_Database.delete("Reminder","Reminder_ID like ?",new String []{rID});
+        DP_Database.close();
     }
 }
