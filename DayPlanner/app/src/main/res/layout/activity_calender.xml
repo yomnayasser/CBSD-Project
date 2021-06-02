@@ -24,7 +24,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="49dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             >
 
             <Button
@@ -56,12 +56,12 @@
             app:compactCalendarMultiEventIndicatorColor="@color/black"
             app:compactCalendarTargetHeight="250dp"
             app:compactCalendarTextColor="@color/black"
-            app:compactCalendarTextSize="12sp"
+            app:compactCalendarTextSize="20dp"
             tools:ignore="MissingConstraints" />
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="101dp">
+            android:layout_height="281dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -70,27 +70,10 @@
 
                 <ListView
                     android:id="@+id/EventsList"
-                    android:layout_width="match_parent"
-                    android:layout_height="99dp" />
+                    android:layout_width="401dp"
+                    android:layout_height="255dp" />
             </LinearLayout>
         </ScrollView>
-
-        <EditText
-            android:id="@+id/NewEvent_text"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="10dp"
-            android:ems="10"
-            android:hint="  Enter New Event Name"
-            android:inputType="textPersonName" />
-
-        <Button
-            android:id="@+id/save_btn"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="140dp"
-            android:text="Save" />
 
         <!--        <TextView-->
         <!--            android:id="@+id/textViewExpenses"-->

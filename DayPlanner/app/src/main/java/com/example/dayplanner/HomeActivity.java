@@ -77,6 +77,7 @@ public class HomeActivity extends AppCompatActivity {
 
         CalenderBtn.setOnClickListener(v -> {
             Intent i = new Intent(HomeActivity.this, calenderActivity.class);
+            i.putExtra("username",username);
             startActivity(i);
         });
 
