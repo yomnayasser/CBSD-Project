@@ -17,7 +17,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
     SQLiteDatabase DP_Database;
     public DayPlannerDatabase(Context context)
     {
-        super(context,databaseName,null,2);
+        super(context,databaseName,null,3);
     }
 
     @Override
@@ -42,6 +42,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("drop table if exists Wallet");
         db.execSQL("drop table if exists TodoItem");
         db.execSQL("drop table if exists Expenses");
+        db.execSQL("drop table if exists CalenderEvents");
         onCreate(db);
     }
 
