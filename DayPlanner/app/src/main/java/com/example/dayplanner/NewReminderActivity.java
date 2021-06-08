@@ -25,6 +25,8 @@ public class NewReminderActivity extends AppCompatActivity {
     String dateStr, timeStr, username;
     String rID;
     boolean AddReminder;
+    String selectedDate;
+    boolean goCalender=false;
     DayPlannerDatabase db;
 
     @Override
@@ -43,7 +45,14 @@ public class NewReminderActivity extends AppCompatActivity {
         txtTime=(EditText)findViewById(R.id.in_time);
 
         AddReminder = getIntent().getExtras().getBoolean("AddReminder");
+        selectedDate= getIntent().getExtras().getString("date");
 
+        if(selectedDate.length()!=0)
+        {
+            txtDate.setText(selectedDate);
+            btnDatePicker.setVisibility(View.INVISIBLE);
+            goCalender=true;
+        }
         if(!AddReminder)
         {
             rID = getIntent().getExtras().getString("rID");
@@ -115,8 +124,22 @@ public class NewReminderActivity extends AppCompatActivity {
                     db.UpdateReminder(username, rID, txtName.getText().toString(), txtDate.getText().toString(), txtTime.getText().toString());
 
                 Intent i = new Intent(NewReminderActivity.this, RemindersActivity.class);
-                i.putExtra("username", username);
-                startActivity(i);
+                    i.putExtra("username", username);
+                    startActivity(i);
+                if(goCalender)
+                {
+                    Intent i2 = new Intent(NewReminderActivity.this, calenderActivity.class);
+                    i2.putExtra("username", username);
+                    startActivity(i2);
+                    goCalender=false;
+                }
+                else
+                {
+                    Intent i3 = new Intent(NewReminderActivity.this, RemindersActivity.class);
+                    i3.putExtra("username", username);
+                    startActivity(i3);
+                }
+
             }
         });
 

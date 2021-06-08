@@ -70,6 +70,7 @@ public class RemindersActivity extends AppCompatActivity implements RemindersAda
                 Intent i = new Intent(RemindersActivity.this, NewReminderActivity.class);
                 i.putExtra("AddReminder", true);
                 i.putExtra("username", username);
+                i.putExtra("date","");
                 startActivity(i);
             }
         });
@@ -86,6 +87,7 @@ public class RemindersActivity extends AppCompatActivity implements RemindersAda
         i.putExtra("rdate", reminders.get(position).getrDate());
         i.putExtra("rtime", reminders.get(position).getrTime());
         i.putExtra("AddReminder", false);
+        i.putExtra("date","");
 
         startActivity(i);
     }

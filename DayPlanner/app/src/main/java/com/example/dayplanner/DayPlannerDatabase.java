@@ -30,7 +30,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,totalBudget float not null,currentBudget float not null,Repeat text,start_date text,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
         db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,name text not null,Category text not null,Amount float not null,time text,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
-        db.execSQL("create table CalenderEvents(Calender_ID integer primary key autoincrement ,eventName text not null,eventDate text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
+        db.execSQL("create table CalenderEvents(Event_ID integer primary key autoincrement ,eventName text not null,eventDate text not null,eventTime text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
@@ -46,6 +46,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         onCreate(db);
     }
 
+    //User Functions
     public Cursor fetchAllUser()
     {
         DP_Database=getReadableDatabase();
@@ -200,22 +201,25 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.close();
     }
 
-    public void addEvent(String Name,String Date,String username)
+    //Calender Functions
+    public void addEvent(String Name,String Date,String Time,String username)
     {
         ContentValues row = new ContentValues();
 
         row.put("eventName",Name);
         row.put("eventDate",Date);
+        row.put("eventTime",Time);
         row.put("user_username",username);
         DP_Database=getWritableDatabase();
         DP_Database.insert("CalenderEvents",null,row);
         DP_Database.close();
     }
 
-    public Cursor getEvents(String username,String date)
+    public Cursor getEvents(String username)
     {
         DP_Database=getReadableDatabase();
-        Cursor cursor = DP_Database.rawQuery("select eventName from CalenderEvents where user_username='"+ username +"' and eventDate='"+ date+"'",null);
+        String [] arg ={username};
+        Cursor cursor = DP_Database.rawQuery("select eventName,eventDate,eventTime,Event_ID from CalenderEvents where user_username like ?",arg);
         if(cursor!=null)
             cursor.moveToFirst();
         DP_Database.close();
