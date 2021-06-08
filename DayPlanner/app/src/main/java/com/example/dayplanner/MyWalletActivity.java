@@ -2,16 +2,26 @@ package com.example.dayplanner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import android.provider.ContactsContract;
 import android.view.ContextMenu;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -33,6 +43,7 @@ public class MyWalletActivity extends AppCompatActivity {
     ArrayList<Expenses> UserExpenses=new ArrayList<Expenses>();
     ExpensesAdapter adapter;
     //@RequiresApi(api = Build.VERSION_CODES.O)
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +57,7 @@ public class MyWalletActivity extends AppCompatActivity {
         date=getIntent().getExtras().getString("date");
         new_wallet=getIntent().getExtras().getBoolean("new_wallet");
 
+        ImageButton addBudget=(ImageButton)findViewById(R.id.AddBtn);
         ImageButton editBudget=(ImageButton)findViewById(R.id.EditBtn);
         FloatingActionButton addExpense=(FloatingActionButton)findViewById(R.id.AddExpenseBtn);
         BudgetAmount=(TextView)findViewById(R.id.textView5);
@@ -91,6 +103,42 @@ public class MyWalletActivity extends AppCompatActivity {
             i.putExtra("Editmode",false);
             startActivity(i);
         });
+        View v=LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_dialog, null, false);
+        final PopupWindow pw = new PopupWindow(v,1000,1000, true);
+        pw.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+        final ImageButton button = (ImageButton)findViewById(R.id.AddBtn);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pw.showAtLocation(v, Gravity.CENTER, 0, 0);
+            }
+        });
+        final Button popup_btn=v.findViewById(R.id.addToBudget);
+        EditText amount=v.findViewById(R.id.editTextNumberDecimal2);
+        popup_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(! (amount.getText().toString().matches("")))
+                {
+                    Wallet w=new Wallet();
+                    float new_budget=Currentbudget+Float.parseFloat(amount.getText().toString());
+                    w.EditWallet(username,new_budget,Totalbudget,repeat,date,MyWalletActivity.this);
+                    BudgetAmount.setText(String.valueOf(new_budget));
+                }
+                pw.dismiss();
+                amount.setText("");
+            }
+        });
+//        addBudget.setOnClickListener(v->{
+//            EditText amount=(EditText)findViewById(R.id.editTextNumberDecimal2);
+//            Button add=(Button)findViewById(R.id.addToBudget);
+//
+////            add.setOnClickListener(view->{
+////            Wallet w=new Wallet();
+////            float new_budget=Currentbudget+Float.parseFloat(amount.toString());
+////            w.EditWallet(username,new_budget,Totalbudget,repeat,date,MyWalletActivity.this);
+////            });
+//        });
         adapter.notifyDataSetChanged();
     }
     @Override
