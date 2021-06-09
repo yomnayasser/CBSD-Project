@@ -18,13 +18,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/noteList"
-        android:layout_width="374dp"
-        android:layout_height="425dp"
+    <TextView
+        android:id="@+id/noteMessage"
+        android:layout_width="198dp"
+        android:layout_height="29dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginTop="100dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/noteView"
+        android:layout_width="395dp"
+        android:layout_height="448dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="104dp"
+        android:cacheColorHint="#FFEB3B"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -35,8 +48,10 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="32dp"
+        android:pointerIcon="hand"
         android:clickable="true"
         android:src="@drawable/btn_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

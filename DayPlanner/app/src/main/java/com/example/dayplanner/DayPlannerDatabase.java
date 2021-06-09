@@ -191,6 +191,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.delete("Expenses","expenses_id='"+ExpenseID+"'",null);
         DP_Database.close();
     }
+<<<<<<< Updated upstream
     public void EditExpense(int ExpenseID,String name,String Category,float price,String date)
     {
         String [] arg ={String.valueOf(ExpenseID)};
@@ -326,4 +327,67 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.delete("Reminder","Reminder_ID like ?",new String []{rID});
         DP_Database.close();
     }
+
+
+
+    public Cursor getNotes(String username){
+        DP_Database = getReadableDatabase();
+
+        String[] par = {username};
+        Cursor c =DP_Database.rawQuery("SELECT Notes_ID, noteText FROM Notes WHERE user_username like ?", par);
+        if (c != null)
+            c.moveToFirst();
+
+        DP_Database.close();
+        return c;
+    }
+
+    public void addNewNote(String username, String note){
+        DP_Database = getWritableDatabase();
+
+        ContentValues addedNote = new ContentValues();
+        addedNote.put("user_username", username);
+        addedNote.put("noteText", note);
+
+        DP_Database.insert("Notes", null, addedNote);
+        DP_Database.close();
+    }
+
+    public Cursor getNote(String content, String username){
+        DP_Database = getWritableDatabase();
+        String[] args = {content, username};
+        Cursor id = DP_Database.rawQuery("SELECT Notes_ID FROM Notes WHERE noteText like ? and user_username like ?", args);
+        if (id != null)
+            id.moveToFirst();
+        DP_Database.close();
+        return id;
+    }
+
+    public void deleteNote(String ID){
+
+        DP_Database = getWritableDatabase();
+        DP_Database.delete("Notes", "Notes_ID like ?", new String[] {ID});
+        DP_Database.close();
+
+    }
+
+    public void editNote(String ID, String username, String newNote){
+        DP_Database = getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("noteText", newNote);
+        DP_Database.update("Notes", cv, "Notes_ID like ? and user_username like ?",
+                new String[] {ID, username});
+
+        DP_Database.close();
+    }
+    
+=======
+
+    public Cursor getNotes(){
+        DP_Database = getReadableDatabase();
+        Cursor notes = DP_Database.rawQuery("select noteText from Notes", null);
+        return notes;
+    }
+>>>>>>> Stashed changes
 }

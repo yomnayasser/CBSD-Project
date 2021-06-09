@@ -16,4 +16,11 @@ public class notesTemp {
         return note;
     }
 
+    public void add(String newNote){
+        String[] temp = new String[note.length + 1];
+        System.arraycopy(note, 0, temp, 0, note.length);
+        temp[note.length] = newNote;
+        note = temp;
+    }
+
 }
