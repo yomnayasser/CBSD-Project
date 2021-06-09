@@ -111,21 +111,6 @@ HashMap<String, ArrayList<CalenderEventsClass>> eventHashMap = new HashMap<Strin
                 date = cursor.getString(1);
                 time = cursor.getString(2);
                 type = "Reminder";
-
-                String d[] = date.split("/");
-                if (Integer.parseInt(d[0]) < 10) {
-                    d[0] = "0" + d[0];
-                }
-                if (Integer.parseInt(d[1]) < 10) {
-                    d[1] = "0" + d[1];
-                }
-                date = d[0] + "/" + d[1] + "/" + d[2];
-                try {
-                    Date _24HourDt = _24HourFormatter.parse(time);
-                    time = _12HourFormatter.format(_24HourDt);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
                 CalenderEventsClass classObj = new CalenderEventsClass(username, name, date, time, type,id,Listindex);
                 Listindex++;
                 events.add(classObj);
@@ -306,14 +291,6 @@ HashMap<String, ArrayList<CalenderEventsClass>> eventHashMap = new HashMap<Strin
                 Intent i = new Intent(calenderActivity.this, NewReminderActivity.class);
                 i.putExtra("AddReminder", true);
                 i.putExtra("username", username);
-                String dateSplit[] = selectedDate.split("/");
-                if (Integer.parseInt(dateSplit[0]) < 10) {
-                    dateSplit[0] = dateSplit[0].substring(1);
-                }
-                if (Integer.parseInt(dateSplit[1]) < 10) {
-                    dateSplit[1] = dateSplit[1].substring(1);
-                }
-                selectedDate = dateSplit[0] + "/" + dateSplit[1] + "/" + dateSplit[2];
                 i.putExtra("date", selectedDate);
                 startActivity(i);
             }

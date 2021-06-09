@@ -53,15 +53,13 @@ public class NewReminderActivity extends AppCompatActivity {
         AddReminder = getIntent().getExtras().getBoolean("AddReminder");
         selectedDate= getIntent().getExtras().getString("date");
 
-        if(selectedDate != null)
-        {
-            if(selectedDate.length()!=0)
+         if(selectedDate.length()!=0)
             {
                 txtDate.setText(selectedDate);
                 btnDatePicker.setVisibility(View.INVISIBLE);
                 goCalender=true;
             }
-        }
+
         if(!AddReminder)
         {
             rID = getIntent().getExtras().getString("rID");
@@ -170,7 +168,6 @@ public class NewReminderActivity extends AppCompatActivity {
                     if(addToCalendar.isChecked() && found)
                     {
                         db.deleteREvent(cID);
-                        System.out.println("hereee");
                         found=false;
                         addToCalendar.setVisibility(View.INVISIBLE);
 
