@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".singleEventActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/EType"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:textSize="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="50dp"
+            android:textColor="#FF0000" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ETime"
+                android:layout_width="wrap_content"
+                android:layout_height="110dp"
+                android:layout_marginRight="5dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textSize="20dp" />
+
+            <Button
+                android:id="@+id/EditTime_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="9dp"
+                android:text="Edit Time" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/ENametextView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="32dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:text="Event Name" />
+
+        <EditText
+            android:id="@+id/EName"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:ems="10"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/EMoneytextView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="32dp"
+            android:text="Item Price" />
+
+        <EditText
+            android:id="@+id/EMoney"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            android:ems="10"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/Eedit"
+            android:layout_width="285dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:text="Save Changes" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

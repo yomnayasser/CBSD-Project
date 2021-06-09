@@ -12,18 +12,9 @@ public class CalenderEventsClass
     private String time;
     private String type;
     private float expenssesPrice;
+    private int index;
 
-
-    public CalenderEventsClass(String username,String name,String date, String time, String type)
-    {
-        this.username=username;
-        this.name=name;
-        this.date=date;
-        this.time=time;
-        this.type=type;
-    }
-
-    public CalenderEventsClass(String username,String name,String date, String time, String type,float expenssesPrice)
+    public CalenderEventsClass(String username,String name,String date, String time, String type,float expenssesPrice,int id,int index)
     {
         this.username=username;
         this.name=name;
@@ -31,6 +22,18 @@ public class CalenderEventsClass
         this.time=time;
         this.type=type;
         this.expenssesPrice=expenssesPrice;
+        this.id=id;
+        this.index=index;
+    }
+    public CalenderEventsClass(String username,String name,String date, String time, String type,int id,int index)
+    {
+        this.username=username;
+        this.name=name;
+        this.date=date;
+        this.time=time;
+        this.type=type;
+        this.id=id;
+        this.index=index;
     }
 
     public float getExpenssesPrice() {
@@ -89,6 +92,14 @@ public class CalenderEventsClass
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
 }
