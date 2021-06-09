@@ -155,11 +155,6 @@ public class NewReminderActivity extends AppCompatActivity {
 
                     }
                 }
-
-                RemindersActivity.b.finish();
-//                Intent i = new Intent(NewReminderActivity.this, RemindersActivity.class);
-//                    i.putExtra("username", username);
-//                    startActivity(i);
                 if(goCalender)
                 {
                     Intent i2 = new Intent(NewReminderActivity.this, calenderActivity.class);
@@ -169,6 +164,7 @@ public class NewReminderActivity extends AppCompatActivity {
                 }
                 else
                 {
+                    RemindersActivity.b.finish();
                     Intent i3 = new Intent(NewReminderActivity.this, RemindersActivity.class);
                     i3.putExtra("username", username);
                     startActivity(i3);
