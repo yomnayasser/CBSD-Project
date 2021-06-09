@@ -2,13 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.DayPlanner" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#393232</item>
-        <item name="colorPrimaryVariant">#393232</item>
-        <item name="colorOnPrimary">#f2edd7</item>
+        <item name="colorPrimary">#112d4e</item>
+        <item name="colorPrimaryVariant">#112d4e</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">#393232</item>
-        <item name="colorSecondaryVariant">#393232</item>
-        <item name="colorOnSecondary">#f2edd7</item>
+        <item name="colorSecondary">#112d4e</item>
+        <item name="colorSecondaryVariant">#112d4e</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->

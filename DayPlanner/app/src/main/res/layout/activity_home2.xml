@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".HomeActivity"
+    android:background="#f9f7f7">
 
     <!--    <EditText-->
     <!--        android:id="@+id/in_date"-->
@@ -79,55 +80,61 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Home Page"
-            android:layout_marginBottom="80dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="50dp"
             android:textSize="40dp"
             android:layout_marginLeft="100dp"
             />
 
         <Button
             android:id="@+id/remindersBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="184dp"
+            android:layout_height="66dp"
+            android:layout_marginLeft="120dp"
+            android:backgroundTint="#dbe2ef"
             android:text="Reminders"
-            app:backgroundTint="@color/teal_200"
-            android:layout_marginLeft="150dp"
-            />
+            android:textColor="#3f72af" />
 
         <Button
             android:id="@+id/todoBtn"
-            android:layout_width="114dp"
-            android:layout_height="45dp"
+            android:layout_width="184dp"
+            android:layout_height="66dp"
+            android:layout_marginLeft="120dp"
             android:text="To Do"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="150dp"
-            app:backgroundTint="@color/teal_200" />
+            android:backgroundTint="#dbe2ef"
+            android:textColor="#3f72af" />
 
         <Button
             android:id="@+id/notesBtn"
-            android:layout_width="114dp"
-            android:layout_height="45dp"
+            android:layout_width="184dp"
+            android:layout_height="66dp"
+            android:layout_marginLeft="120dp"
             android:text="Notes"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="150dp"
-            app:backgroundTint="@color/teal_200" />
+            android:backgroundTint="#dbe2ef"
+            android:textColor="#3f72af"/>
 
         <Button
             android:id="@+id/WalletBtn"
-            android:layout_width="114dp"
-            android:layout_height="45dp"
+            android:layout_width="184dp"
+            android:layout_height="66dp"
+            android:layout_marginLeft="120dp"
             android:text="Wallet"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="150dp"
-            app:backgroundTint="@color/teal_200" />
+
+            android:backgroundTint="#dbe2ef"
+            android:textColor="#3f72af"/>
 
         <Button
             android:id="@+id/CalenderBtn"
-            android:layout_width="114dp"
-            android:layout_height="45dp"
+            android:layout_width="184dp"
+            android:layout_height="66dp"
+            android:layout_marginLeft="120dp"
             android:text="Calender"
             android:layout_marginTop="50dp"
-            android:layout_marginLeft="150dp"
-            app:backgroundTint="@color/teal_200" />
+            android:backgroundTint="#dbe2ef"
+            android:textColor="#3f72af"/>
     </LinearLayout>
 
 

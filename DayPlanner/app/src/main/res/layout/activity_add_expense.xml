@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f9f7f7"
     tools:context=".AddExpenseActivity">
 
     <EditText
@@ -57,13 +58,14 @@
     <Button
         android:id="@+id/SaveExpenseBtn"
         android:layout_width="336dp"
+        android:text="Save"
         android:layout_height="55dp"
         android:layout_marginTop="148dp"
-        android:backgroundTint="@color/black"
-        android:text="Save"
+        android:backgroundTint="#dbe2ef"
+        android:textColor="#3f72af"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="@+id/ExpenseDateEditTxt"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 

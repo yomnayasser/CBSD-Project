@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="#f9f7f7"
         tools:layout_editor_absoluteX="200dp"
         tools:layout_editor_absoluteY="65dp">
 
@@ -18,16 +19,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Day Planner"
+            android:textStyle="italic"
             android:textSize="50dp"
             android:layout_marginLeft="80dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="167dp"
             android:layout_height="104dp"
-            android:layout_marginLeft="140dp"
+            android:layout_marginLeft="130dp"
             android:layout_marginTop="50dp"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -38,7 +40,7 @@
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="Enter Your Username"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="100dp"
             android:textSize="20dp"
             android:layout_marginTop="50dp"
             />
@@ -48,7 +50,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:layout_marginLeft="110dp"
+            android:layout_marginLeft="100dp"
             android:layout_marginTop="30dp"
             android:textSize="20dp"
             android:hint="Enter Your Password"
@@ -58,36 +60,35 @@
             android:id="@+id/SignInbutton"
             android:layout_width="170dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="135dp"
+            android:layout_marginLeft="125dp"
             android:layout_marginTop="30dp"
             android:text="SignIn"
-            android:backgroundTint="#FAC898"
-            
+            android:backgroundTint="#dbe2ef"
+            android:textColor="#3f72af"
+            android:textSize="20dp"
+
             />
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="140dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginLeft="125dp"
+            android:layout_marginTop="30dp"
             android:text="Dont have an account?" />
 
         <Button
             android:id="@+id/SignUpbutton"
             android:layout_width="170dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="135dp"
+            android:layout_marginLeft="125dp"
             android:layout_marginTop="10dp"
             android:text="SignUp"
-            android:backgroundTint="#FAC898"
+            android:backgroundTint="#dbe2ef"
+            android:textColor="#3f72af"
+            android:textSize="20dp"
 
             />
-
-        <ListView
-            android:id="@+id/Listview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
 
     </LinearLayout>
 

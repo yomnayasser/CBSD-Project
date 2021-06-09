@@ -9,7 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#f9f7f7">
 
         <TextView
             android:id="@+id/textView"
@@ -18,7 +19,8 @@
             android:text="My Calender"
             android:textSize="35dp"
             android:paddingTop="20dp"
-            android:paddingLeft="130dp"
+            android:paddingLeft="110dp"
+            android:textStyle="bold"
             />
 
         <LinearLayout
@@ -29,17 +31,21 @@
 
             <Button
                 android:id="@+id/AddEvent_btn"
-                android:layout_width="180dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:text="Add New Event" />
+                android:text="Add New Event"
+                android:backgroundTint="#dbe2ef"
+                android:textColor="#3f72af" />
 
             <Button
                 android:id="@+id/AddReminder_btn"
-                android:layout_width="150dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:text="Add Reminder" />
+                android:layout_marginLeft="20dp"
+                android:text="Add Reminder"
+                android:backgroundTint="#dbe2ef"
+                android:textColor="#3f72af"/>
         </LinearLayout>
 
         <com.github.sundeepk.compactcalendarview.CompactCalendarView
@@ -47,10 +53,9 @@
             android:layout_width="fill_parent"
             android:layout_height="250dp"
             android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            app:compactCalendarBackgroundColor="@color/white"
+            app:compactCalendarBackgroundColor="#f9f7f7"
             app:compactCalendarCurrentDayBackgroundColor=" #add8e6"
             app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
             app:compactCalendarMultiEventIndicatorColor="@color/black"
@@ -71,7 +76,9 @@
                 <ListView
                     android:id="@+id/EventsList"
                     android:layout_width="401dp"
-                    android:layout_height="255dp" />
+                    android:layout_height="255dp"
+                    android:divider="#112d4e"
+                    android:dividerHeight="1dp" />
             </LinearLayout>
         </ScrollView>
 

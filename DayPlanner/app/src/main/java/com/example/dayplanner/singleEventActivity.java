@@ -48,10 +48,10 @@ private SimpleDateFormat _12HourFormatter = new SimpleDateFormat("hh:mm a");
         priceTextView.setVisibility(View.INVISIBLE);
         Price.setVisibility(View.INVISIBLE);
         save.setVisibility(View.INVISIBLE);
+        edit.setVisibility(View.INVISIBLE);
         Time.setEnabled(false);
         Name.setEnabled(false);
         Price.setEnabled(false);
-
 
         if(type.equals("Expenses"))
         {
@@ -65,6 +65,7 @@ private SimpleDateFormat _12HourFormatter = new SimpleDateFormat("hh:mm a");
         {
             Type.setTextColor(Color.GREEN);
             save.setVisibility(View.VISIBLE);
+            edit.setVisibility(View.VISIBLE);
             Time.setEnabled(true);
             Name.setEnabled(true);
             Price.setEnabled(true);

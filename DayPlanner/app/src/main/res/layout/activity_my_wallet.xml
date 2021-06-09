@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2edd7"
+    android:background="#f9f7f7"
     tools:context=".MyWalletActivity">
 
     <ImageButton
@@ -13,13 +13,13 @@
         android:layout_height="49dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:backgroundTint="#3a6351"
+        android:backgroundTint="#dbe2ef"
         app:layout_constraintBottom_toTopOf="@+id/ExpensesList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.037"
         app:srcCompat="@android:drawable/ic_menu_edit"
-        app:tint="#e48257" />
+        app:tint="#3f72af" />
 
     <TextView
         android:id="@+id/textView5"
@@ -43,9 +43,9 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="16dp"
-        android:background="#e48257"
-        android:backgroundTint="#3a6351"
+        android:backgroundTint="#dbe2ef"
         android:clickable="true"
+        app:rippleColor="#3f72af"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />
@@ -65,7 +65,7 @@
         android:layout_width="364dp"
         android:layout_height="512dp"
         android:layout_marginTop="4dp"
-        android:divider="#393232"
+        android:divider="#112d4e"
         android:dividerHeight="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.34"
@@ -79,13 +79,13 @@
         android:layout_width="55dp"
         android:layout_height="49dp"
         android:layout_marginBottom="56dp"
-        android:backgroundTint="#3a6351"
+        android:backgroundTint="#dbe2ef"
         app:layout_constraintBottom_toTopOf="@+id/ExpensesList"
         app:layout_constraintEnd_toStartOf="@+id/EditBtn"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/textView5"
         app:srcCompat="@drawable/btn_add"
-        app:tint="#e48257"
+        app:tint="#3f72af"
         tools:ignore="VectorDrawableCompat" />
 
     <TextView

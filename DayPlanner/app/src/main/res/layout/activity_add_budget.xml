@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f9f7f7"
     tools:context=".AddBudgetActivity">
 
     <TextView
@@ -81,14 +82,15 @@
 
     <Button
         android:id="@+id/saveBudgetBtn"
-        android:layout_width="400dp"
-        android:layout_height="60dp"
+        android:layout_width="336dp"
+        android:layout_height="55dp"
         android:layout_marginTop="20dp"
+        android:backgroundTint="#dbe2ef"
         android:text="Save"
+        android:textColor="#3f72af"
         android:textSize="30dp"
-        android:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/RepeatSpinner"
-        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintHorizontal_bias="0.55"
         app:layout_constraintStart_toStartOf="@+id/RepeatSpinner"
         app:layout_constraintTop_toBottomOf="@+id/RepeatSpinner" />
 </androidx.constraintlayout.widget.ConstraintLayout>
