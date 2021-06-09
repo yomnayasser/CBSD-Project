@@ -17,7 +17,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
     SQLiteDatabase DP_Database;
     public DayPlannerDatabase(Context context)
     {
-        super(context,databaseName,null,2);
+        super(context,databaseName,null,3);
     }
 
     @Override
