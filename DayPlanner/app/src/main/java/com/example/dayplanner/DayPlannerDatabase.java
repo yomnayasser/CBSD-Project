@@ -191,7 +191,6 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.delete("Expenses","expenses_id='"+ExpenseID+"'",null);
         DP_Database.close();
     }
-<<<<<<< Updated upstream
     public void EditExpense(int ExpenseID,String name,String Category,float price,String date)
     {
         String [] arg ={String.valueOf(ExpenseID)};
@@ -328,8 +327,6 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.close();
     }
 
-
-
     public Cursor getNotes(String username){
         DP_Database = getReadableDatabase();
 
@@ -381,13 +378,4 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
 
         DP_Database.close();
     }
-    
-=======
-
-    public Cursor getNotes(){
-        DP_Database = getReadableDatabase();
-        Cursor notes = DP_Database.rawQuery("select noteText from Notes", null);
-        return notes;
-    }
->>>>>>> Stashed changes
 }

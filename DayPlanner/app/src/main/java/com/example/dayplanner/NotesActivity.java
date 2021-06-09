@@ -19,38 +19,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class NotesActivity extends AppCompatActivity {
-
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-
     ListView view;
     ArrayAdapter<String> notesAdapt;
     DayPlannerDatabase db;
-<<<<<<< Updated upstream
     ArrayList<String> mynotes;
-    ArrayAdapter<String> adap;
-    ListView lv = (ListView)findViewById(R.id.noteView);
-    DayPlannerDatabase dpdb;
-=======
-=======
-    ArrayList<String> mynotes;
-    ArrayAdapter<String> adap;
-    ListView lv = (ListView)findViewById(R.id.noteList);
-    DayPlannerDatabase dpdb;
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
         String name = getIntent().getExtras().getString("username");
         TextView message = (TextView)findViewById(R.id.noteMessage);
 
@@ -71,22 +49,10 @@ public class NotesActivity extends AppCompatActivity {
                 notes.moveToNext();
             }
         }
-<<<<<<< Updated upstream
-=======
-=======
-        notesTemp note = new notesTemp();
-        String[] notes = note.getNote();
->>>>>>> Stashed changes
->>>>>>> Stashed changes
-
         view.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
                 String note = ((TextView)view).getText().toString();
                 Cursor selectedNote = db.getNote(note, name);
                 String noteID = selectedNote.getString(0);
@@ -104,12 +70,6 @@ public class NotesActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-<<<<<<< Updated upstream
-=======
-=======
-
->>>>>>> Stashed changes
->>>>>>> Stashed changes
 
         FloatingActionButton addNote = (FloatingActionButton)findViewById(R.id.addButton);
         addNote.setOnClickListener(v -> {

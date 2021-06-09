@@ -7,15 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-<<<<<<< Updated upstream
 import android.widget.Toast;
-=======
-<<<<<<< Updated upstream
-import android.widget.Toast;
-=======
->>>>>>> Stashed changes
-
->>>>>>> Stashed changes
 public class AddNoteActivity extends AppCompatActivity {
 
     @Override
@@ -23,31 +15,16 @@ public class AddNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
 
-<<<<<<< Updated upstream
-=======
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
         DayPlannerDatabase db = new DayPlannerDatabase(this);
 
-        EditText newNote = (EditText)findViewById(R.id.newNote);
-        Button saveNewNote = (Button)findViewById(R.id.saveNewNote);
-<<<<<<< Updated upstream
+        Button saveNewNote = (Button) findViewById(R.id.saveNewNote);
+        EditText newNote = (EditText) findViewById(R.id.newNote);
         notesTemp tempObj = new notesTemp();
-        saveNewNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-=======
-=======
-        Button saveNewNote = (Button)findViewById(R.id.saveNewNote);
-        EditText newNote = (EditText)findViewById(R.id.newNote);
-        notesTemp tempObj = new notesTemp();
->>>>>>> Stashed changes
 
         saveNewNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
+
                 String note = newNote.getText().toString();
                 String username = getIntent().getExtras().getString("username");
 
@@ -56,21 +33,7 @@ public class AddNoteActivity extends AppCompatActivity {
             }
         });
 
-<<<<<<< Updated upstream
-                String newNoteText = newNote.getText().toString();
-                tempObj.add(newNoteText);
-            }
-        }
-
-=======
-=======
-                String newNoteText = newNote.getText().toString();
-                tempObj.add(newNoteText);
-            }
-        });
-
-
->>>>>>> Stashed changes
+        String newNoteText = newNote.getText().toString();
+        tempObj.add(newNoteText);
     }
 }
->>>>>>> Stashed changes

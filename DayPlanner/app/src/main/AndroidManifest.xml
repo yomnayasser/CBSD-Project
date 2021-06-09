@@ -9,16 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DayPlanner">
-<<<<<<< Updated upstream
         <activity android:name=".singleEventActivity"></activity>
         <activity android:name=".EditNotesActivity"></activity>
-=======
-<<<<<<< HEAD
-        <activity android:name=".EditNotesActivity"></activity>
-=======
-        <activity android:name=".singleEventActivity"></activity>
->>>>>>> c029e434fd54eec0a24cee19def3324a4b6395f3
->>>>>>> Stashed changes
         <activity android:name=".AddEventActivity" />
         <activity android:name=".calenderActivity" />
         <activity android:name=".AddExpenseActivity" />
