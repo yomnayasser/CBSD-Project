@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -26,16 +27,19 @@ import java.util.Calendar;
 import java.util.List;
 
 public class RemindersActivity extends AppCompatActivity implements RemindersAdapter.myOnClickListener{
+    public static Activity b;
     private RecyclerView recyclerView;
     private RemindersAdapter remindersAdapter;
     private List<Reminder> reminders;
     String username;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminders);
 
+        b=this;
         username=getIntent().getExtras().getString("username");
 
         getSupportActionBar().hide();
@@ -72,6 +76,8 @@ public class RemindersActivity extends AppCompatActivity implements RemindersAda
                 i.putExtra("username", username);
                 i.putExtra("date","");
                 startActivity(i);
+
+                finish();
             }
         });
 

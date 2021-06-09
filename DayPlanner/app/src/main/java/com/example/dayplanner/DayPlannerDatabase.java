@@ -31,7 +31,9 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
         db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,name text not null,Category text not null,Amount float not null,time text,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
         db.execSQL("create table CalenderEvents(Event_ID integer primary key autoincrement ,eventName text not null,eventDate text not null,eventTime text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
+        db.execSQL("create table RemovedCalenderEvents(E_ID integer primary key autoincrement ,RemovedID int not null,Rtype text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
@@ -43,6 +45,7 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         db.execSQL("drop table if exists TodoItem");
         db.execSQL("drop table if exists Expenses");
         db.execSQL("drop table if exists CalenderEvents");
+        db.execSQL("drop table if exists RemovedCalenderEvents");
         onCreate(db);
     }
 
@@ -226,6 +229,58 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         return cursor;
 
     }
+    public void deleteEvent(int eventID)
+    {
+        DP_Database=getWritableDatabase();
+        DP_Database.delete("CalenderEvents","Event_ID='"+eventID+"'",null);
+        DP_Database.close();
+    }
+
+    public void updateEvent(String Name,String Date,String Time,String username,int ID)
+    {
+
+        ContentValues row = new ContentValues();
+        row.put("eventName",Name);
+        row.put("eventDate",Date);
+        row.put("eventTime",Time);
+        row.put("user_username",username);
+        DP_Database=getWritableDatabase();
+        DP_Database.update("CalenderEvents",row," user_username like ? and Event_ID like ?",new String []{username, String.valueOf(ID)});
+        DP_Database.close();
+    }
+
+    public Cursor getRemovedEvents(String username)
+    {
+        DP_Database=getReadableDatabase();
+        String [] arg ={username};
+        Cursor cursor = DP_Database.rawQuery("select RemovedID,Rtype,E_ID from RemovedCalenderEvents where user_username like ?",arg);
+        if(cursor!=null)
+            cursor.moveToFirst();
+        DP_Database.close();
+        return cursor;
+    }
+    public void addRemovedEvent(int removedID,String type,String Username)
+    {
+        ContentValues row = new ContentValues();
+        row.put("RemovedID",removedID);
+        row.put("Rtype",type);
+        row.put("user_username",Username);
+        DP_Database=getWritableDatabase();
+        DP_Database.insert("RemovedCalenderEvents",null,row);
+        DP_Database.close();
+    }
+
+    public void deleteREvent(int ID)
+    {
+        DP_Database=getWritableDatabase();
+        DP_Database.delete("RemovedCalenderEvents","E_ID='"+ID+"'",null);
+        DP_Database.close();
+    }
+//    public void deleteOuterEventTable()
+//    {
+//        DP_Database=getWritableDatabase();
+//        DP_Database.execSQL("delete from OuterCalenderEvents");
+//    }
 
     // REMINDERS FUNCTIONS
     public Cursor fetchAllReminders(String username)

@@ -58,12 +58,12 @@
         android:id="@+id/SaveExpenseBtn"
         android:layout_width="336dp"
         android:layout_height="55dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginTop="148dp"
+        android:backgroundTint="@color/black"
         android:text="Save"
         android:textSize="30dp"
-        android:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/ExpenseDateEditTxt"
-        app:layout_constraintHorizontal_bias="0.339"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
@@ -127,5 +127,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <CheckBox
+        android:id="@+id/addEToCalender"
+        android:layout_width="256dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="33dp"
+        android:text="Add To Calendar"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/SaveExpenseBtn"
+        app:layout_constraintEnd_toEndOf="@+id/ExpenseDateEditTxt"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/ExpenseDateEditTxt" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

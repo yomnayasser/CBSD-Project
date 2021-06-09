@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -21,9 +23,13 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.jar.Attributes;
 
 public class AddExpenseActivity extends AppCompatActivity {
-
+String  Name;
+DayPlannerDatabase dp;
+boolean found=false;
+int cID;
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +58,16 @@ public class AddExpenseActivity extends AppCompatActivity {
         EditText ExpenseName=(EditText)findViewById(R.id.ExpenseNameTxt);
         EditText Price=(EditText)findViewById(R.id.PriceText);
         EditText ExpenseDate=(EditText)findViewById(R.id.ExpenseDateEditTxt);
+        CheckBox addToCalendar = (CheckBox)findViewById(R.id.addEToCalender) ;
+        addToCalendar.setVisibility(View.INVISIBLE);
+
         ExpenseDate.setFocusable(false);
         ExpenseDate.setKeyListener(null);
         LocalDateTime timeNow=LocalDateTime.now();
         String timeNowStr=formatter.format(Date.from(timeNow.atZone(ZoneId.systemDefault()).toInstant()));
         ExpenseDate.setText(timeNowStr);
 
+        dp = new DayPlannerDatabase(getApplicationContext());
         boolean editMode=getIntent().getExtras().getBoolean("Editmode");
         if(editMode==true)
         {
@@ -66,6 +76,25 @@ public class AddExpenseActivity extends AppCompatActivity {
             Exp_category=getIntent().getExtras().getString("ExpenseCategory");
             Exp_price=getIntent().getExtras().getFloat("ExpensePrice");
             Exp_date=getIntent().getExtras().getString("ExpenseDate");
+            System.out.println(Exp_ID);
+            Cursor removedIDCursor=dp.getRemovedEvents(username);
+            while (!removedIDCursor.isAfterLast() && removedIDCursor != null)
+            {
+                 int RemovId=removedIDCursor.getInt(0);
+                String RemovType=removedIDCursor.getString(1);
+                cID=removedIDCursor.getInt(2);
+                if(RemovId==Exp_ID && RemovType.equals("Expenses"))
+                {
+                    System.out.println(RemovId);
+                    found=true;
+                }
+                if(found)
+                {
+                    System.out.println("Here");
+                    addToCalendar.setVisibility(View.VISIBLE);
+                }
+                removedIDCursor.moveToNext();
+            }
 
             ExpenseName.setText(Exp_name);
             Price.setText(String.valueOf(Exp_price));
@@ -134,7 +163,7 @@ public class AddExpenseActivity extends AppCompatActivity {
                     Price.setError("Enter Price please");
                 else
                 {
-                    String Name=ExpenseName.getText().toString();
+                   Name=ExpenseName.getText().toString();
                     float ExpPrice=Float.parseFloat(Price.getText().toString());
                     String category=CategoriesSpinner.getSelectedItem().toString();
                     if(category.equals("Other") && !(otherCategory.getText().toString().matches("")))
@@ -152,6 +181,12 @@ public class AddExpenseActivity extends AppCompatActivity {
                             wallet.getWallet(username,AddExpenseActivity.this);
                             new_budget=wallet.EditCurrentBudget(wallet.getId(),wallet.getCurrentBudget(), finalExp_price,true,AddExpenseActivity.this);
                             e.DeleteExpense(finalExp_ID,AddExpenseActivity.this);
+                            if(addToCalendar.isChecked() && found)
+                            {
+                                dp.deleteREvent(cID);
+                                found=false;
+                            }
+
                         }
                         e.AddNewExpense(id, Name, category, ExpPrice, ExpenseDate.getText().toString(), AddExpenseActivity.this);
                         Intent i=new Intent(AddExpenseActivity.this,MyWalletActivity.class);

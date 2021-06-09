@@ -45,12 +45,16 @@ public class CalenderAdapter extends ArrayAdapter<CalenderEventsClass>
         }
         else if(Type.getText().toString().equals("Event"))
         {
-            Type.setTextColor(Color.CYAN);
+            Type.setTextColor(Color.GREEN);
         }
         Time.setText(c.getTime());
         Name.setText("Name: "+c.getName());
         Price.setText("Price: "+String.valueOf(c.getExpenssesPrice()));
 
         return convertView;
+    }
+
+    public interface myOnClickListener {
+        public void myOnClick(int position);
     }
 }

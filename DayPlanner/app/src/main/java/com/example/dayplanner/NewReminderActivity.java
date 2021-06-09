@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -28,6 +30,8 @@ public class NewReminderActivity extends AppCompatActivity {
     String selectedDate;
     boolean goCalender=false;
     DayPlannerDatabase db;
+    int cID;
+    boolean found=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,8 @@ public class NewReminderActivity extends AppCompatActivity {
         txtName=(EditText)findViewById(R.id.reminderNameBox);
         txtDate=(EditText)findViewById(R.id.in_date);
         txtTime=(EditText)findViewById(R.id.in_time);
+        CheckBox addToCalendar = (CheckBox)findViewById(R.id.addTRoCalender) ;
+        addToCalendar.setVisibility(View.INVISIBLE);
 
         AddReminder = getIntent().getExtras().getBoolean("AddReminder");
         selectedDate= getIntent().getExtras().getString("date");
@@ -60,6 +66,23 @@ public class NewReminderActivity extends AppCompatActivity {
             txtTime.setText(getIntent().getExtras().getString("rtime"));
             txtName.setText(getIntent().getExtras().getString("rname"));
             btnDeleteReminder.setVisibility(View.VISIBLE);
+            db = new DayPlannerDatabase(getApplicationContext());
+            Cursor removedIDCursor=db.getRemovedEvents(username);
+            while (!removedIDCursor.isAfterLast() && removedIDCursor != null)
+            {
+                int RemovId=removedIDCursor.getInt(0);
+                String RemovType=removedIDCursor.getString(1);
+                cID=removedIDCursor.getInt(2);
+                if(RemovId==Integer.parseInt(rID) && RemovType.equals("Reminder"))
+                {
+                    found=true;
+                }
+                if(found)
+                {
+                    addToCalendar.setVisibility(View.VISIBLE);
+                }
+                removedIDCursor.moveToNext();
+            }
         }
         else
         {
@@ -121,11 +144,22 @@ public class NewReminderActivity extends AppCompatActivity {
                 if(AddReminder)
                     db.AddReminder(username, txtName.getText().toString(), txtDate.getText().toString(), txtTime.getText().toString());
                 else
+                {
                     db.UpdateReminder(username, rID, txtName.getText().toString(), txtDate.getText().toString(), txtTime.getText().toString());
+                    if(addToCalendar.isChecked() && found)
+                    {
+                        db.deleteREvent(cID);
+                        System.out.println("hereee");
+                        found=false;
+                        addToCalendar.setVisibility(View.INVISIBLE);
 
-                Intent i = new Intent(NewReminderActivity.this, RemindersActivity.class);
-                    i.putExtra("username", username);
-                    startActivity(i);
+                    }
+                }
+
+                RemindersActivity.b.finish();
+//                Intent i = new Intent(NewReminderActivity.this, RemindersActivity.class);
+//                    i.putExtra("username", username);
+//                    startActivity(i);
                 if(goCalender)
                 {
                     Intent i2 = new Intent(NewReminderActivity.this, calenderActivity.class);
@@ -140,18 +174,22 @@ public class NewReminderActivity extends AppCompatActivity {
                     startActivity(i3);
                 }
 
+                finish();
             }
         });
 
         btnDeleteReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                RemindersActivity.b.finish();
                 db = new DayPlannerDatabase(getApplicationContext());
                 db.DeleteReminder(rID);
 
                 Intent i = new Intent(NewReminderActivity.this, RemindersActivity.class);
                 i.putExtra("username", username);
                 startActivity(i);
+
+//                finish();
             }
         });
     }
