@@ -37,6 +37,7 @@ public class HomeActivity extends AppCompatActivity {
         });
         notesBtn.setOnClickListener(v -> {
             Intent i = new Intent(HomeActivity.this, NotesActivity.class);
+            i.putExtra("username",username);
             startActivity(i);
         });
         WalletBtn.setOnClickListener(v -> {
