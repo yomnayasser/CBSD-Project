@@ -53,11 +53,14 @@ public class NewReminderActivity extends AppCompatActivity {
         AddReminder = getIntent().getExtras().getBoolean("AddReminder");
         selectedDate= getIntent().getExtras().getString("date");
 
-        if(selectedDate.length()!=0)
+        if(selectedDate != null)
         {
-            txtDate.setText(selectedDate);
-            btnDatePicker.setVisibility(View.INVISIBLE);
-            goCalender=true;
+            if(selectedDate.length()!=0)
+            {
+                txtDate.setText(selectedDate);
+                btnDatePicker.setVisibility(View.INVISIBLE);
+                goCalender=true;
+            }
         }
         if(!AddReminder)
         {
@@ -106,7 +109,17 @@ public class NewReminderActivity extends AppCompatActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int monthOfYear, int dayOfMonth) {
-                                dateStr = String.valueOf(dayOfMonth) + "/" + String.valueOf(monthOfYear + 1) + "/" + String.valueOf(year);
+
+                                String dd = String.valueOf(dayOfMonth);
+                                if(dd.length() == 1)
+                                    dd = "0" + dd;
+
+
+                                String mm = String.valueOf(monthOfYear+1);
+                                if(mm.length() == 1)
+                                    mm = "0" + mm;
+
+                                dateStr = dd + "/" + mm + "/" + String.valueOf(year);
                                 txtDate.setText(dateStr);
 
                             }
@@ -129,7 +142,15 @@ public class NewReminderActivity extends AppCompatActivity {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
-                                timeStr = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
+                                String hr = String.valueOf(hourOfDay);
+                                if(hr.length() == 1)
+                                    hr = "0" + hr;
+
+                                String min = String.valueOf(minute);
+                                if(min.length() == 1)
+                                    min = "0" + min;
+
+                                timeStr = hr + ":" + min;
                                 txtTime.setText(timeStr);
                             }
                         }, mHour, mMinute, false);
