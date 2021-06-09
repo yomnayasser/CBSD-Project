@@ -32,7 +32,8 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         todoBtn.setOnClickListener(v -> {
-            Intent i = new Intent(HomeActivity.this, ToDoActivity.class);
+            Intent i = new Intent(HomeActivity.this, ToDoLists.class);
+            i.putExtra("username",username);
             startActivity(i);
         });
         notesBtn.setOnClickListener(v -> {

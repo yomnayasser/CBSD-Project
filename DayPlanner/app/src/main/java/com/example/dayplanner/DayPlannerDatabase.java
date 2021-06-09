@@ -6,10 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.format.DateFormat;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import static android.content.ContentValues.TAG;
 
 public class DayPlannerDatabase extends SQLiteOpenHelper
 {
@@ -25,10 +30,10 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
     {
         db.execSQL("create table User(username text primary key ,name text not null,email text not null, password text not null )");
         db.execSQL("create table Notes(Notes_ID integer primary key autoincrement ,noteText text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table TodoList(TodoList_ID integer primary key autoincrement ,name text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
+        db.execSQL("create table TodoList(TodoList_ID integer primary key autoincrement ,name text not null,user_username integer, ftime integer,FOREIGN KEY(user_username) REFERENCES User(username) )");
         db.execSQL("create table Reminder(Reminder_ID integer primary key autoincrement, reminder_name text, reminder_date text, reminder_time text, user_username text, FOREIGN KEY(user_username) REFERENCES User(username))");
         db.execSQL("create table Wallet(Wallet_ID integer primary key autoincrement ,totalBudget float not null,currentBudget float not null,Repeat text,start_date text,user_username text,FOREIGN KEY(user_username) REFERENCES User(username) )");
-        db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement ,name text not null,status text not null,TodoItemID integer,ReminderID integer,constraint TodoItemID FOREIGN KEY(TodoItemID) REFERENCES TodoList(TodoList_ID),constraint ReminderID FOREIGN KEY(ReminderID) REFERENCES Reminder(Reminder_ID))");
+        db.execSQL("create table TodoItem(TodoItem_ID integer primary key autoincrement, name text not null, status integer not null, TodoListID integer, FOREIGN KEY(TodoListID) REFERENCES TodoList(TodoList_ID))");
         db.execSQL("create table Expenses(Expenses_ID integer primary key autoincrement ,name text not null,Category text not null,Amount float not null,time text,WalletID integer,FOREIGN KEY(WalletID) REFERENCES Wallet(Wallet_ID) )");
         db.execSQL("create table CalenderEvents(Event_ID integer primary key autoincrement ,eventName text not null,eventDate text not null,eventTime text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
         db.execSQL("create table RemovedCalenderEvents(E_ID integer primary key autoincrement ,RemovedID int not null,Rtype text not null,user_username text,FOREIGN KEY(user_username) REFERENCES User(username))");
@@ -376,6 +381,131 @@ public class DayPlannerDatabase extends SQLiteOpenHelper
         DP_Database.update("Notes", cv, "Notes_ID like ? and user_username like ?",
                 new String[] {ID, username});
 
+        DP_Database.close();
+    }
+
+//    public void openDB(){
+//        DP_Database=this.getWritableDatabase();
+//    }
+
+    public long insertTask(todo task, String TodoListID){
+        DP_Database=this.getWritableDatabase();
+        ContentValues Cont=new ContentValues();
+        Cont.put("TodoListID",TodoListID);
+        Cont.put("name",task.getTask());
+        Cont.put("status",0);
+//        Log.e(TAG, String.valueOf(DP_Database.insert("TodoItem",null,Cont)));
+        long num = DP_Database.insert("TodoItem",null,Cont);
+        DP_Database.close();
+        return num;
+    }
+    public List<todo> getTasks(String username, String listname){
+        List<todo> tasklist=new ArrayList<>();
+//        DP_Database.beginTransaction();
+        DP_Database=getReadableDatabase();
+        Cursor cursor=null;
+        try {
+            cursor = DP_Database.rawQuery("select name, status, TodoItem_ID from TodoItem where TodoListID=(select TodoList_ID from TodoList where name='" + listname + "')",null);
+            if(cursor!=null){
+                if (cursor.moveToFirst()){
+                    while (cursor.moveToNext()){
+                        todo task=new todo();
+                        task.setId(cursor.getInt(2));
+                        task.setTask(cursor.getString(0));
+                        task.setStatus(cursor.getInt(1));
+                        tasklist.add(task);
+
+                    }
+                }
+            }
+        }
+        catch(Exception ex) {
+            ex.printStackTrace();
+            DP_Database.close();
+//            cursor.close();
+        }
+        try{
+//            DP_Database.endTransaction();
+            cursor.close();
+        }catch (Exception ex)
+        {
+            Log.e(TAG, "GET TASKS FUNCTION: " + ex.getMessage().toString());
+        }
+        return tasklist;
+    }
+
+    public void updateStatus(int id,int status){
+        DP_Database=this.getWritableDatabase();
+        ContentValues Cont=new ContentValues();
+        Cont.put("status",status);
+        DP_Database.update("TodoItem",Cont,"TodoItem_ID=?",new String[] {String.valueOf(id)});
+        DP_Database.close();
+    }
+    public void updateTask(int id,String task){
+        DP_Database = getWritableDatabase();
+        ContentValues Cont=new ContentValues();
+        Cont.put("name",task);
+        DP_Database.update("TodoItem",Cont,"TodoItem_ID=?",new String[] {String.valueOf(id)});
+        DP_Database.close();
+    }
+    public void deleteTask(int id){
+        DP_Database = getWritableDatabase();
+        DP_Database.delete("TodoItem","TodoItem_ID=?",new String[]{String.valueOf(id)});
+        DP_Database.close();
+    }
+
+    public List<lists_todo> fetchAllLists(String username)
+    {
+        DP_Database=getReadableDatabase();
+        Cursor cursor = DP_Database.rawQuery("select name, TodoList_ID, ftime from TodoList where user_username=?",new String[] {username});
+        List<lists_todo> mylists = new ArrayList<>();
+        if (cursor!=null)
+            cursor.moveToFirst();
+
+        while (!cursor.isAfterLast())
+        {
+            lists_todo tempItem = new lists_todo();
+            tempItem.name = cursor.getString(0);
+            tempItem.id = cursor.getInt(1);
+            tempItem.ftime = cursor.getInt(2);
+            mylists.add(tempItem);
+            cursor.moveToNext();
+        }
+        DP_Database.close();
+        return mylists;
+    }
+
+    public void insertList(String username, String listName){
+        DP_Database = getWritableDatabase();
+        ContentValues Cont=new ContentValues();
+        Cont.put("name",listName);
+        Cont.put("user_username",username);
+        Cont.put("ftime", 1);
+        DP_Database.insert("TodoList",null,Cont);
+        DP_Database.close();
+    }
+    public void updateLists(String name,String listname, String username){
+        ContentValues Cont=new ContentValues();
+        Cont.put("name",listname);
+        DP_Database = getWritableDatabase();
+        DP_Database.update("TodoList",Cont,"name=? and user_username=?",new String[] {String.valueOf(name), username});
+        DP_Database.close();
+    }
+
+    public void updatefTime(String listid, String username,int val){
+        DP_Database = getWritableDatabase();
+        ContentValues Cont=new ContentValues();
+        Cont.put("ftime",val);
+        DP_Database.update("TodoList",Cont,"TodoList_ID=? and user_username=?",new String[] {String.valueOf(listid),username});
+        DP_Database.close();
+
+//        DP_Database = getWritableDatabase();
+//        DP_Database.update("TodoList",Cont,"TodoList_ID=? and user_username=?",new String[] {String.valueOf(listid), username});
+//        DP_Database.close();
+    }
+    public void deleteList(String name, String username){
+        DP_Database=getWritableDatabase();
+        DP_Database.delete("TodoList","name=? and user_username=?",new String[]{String.valueOf(name), username});
         DP_Database.close();
     }
 }

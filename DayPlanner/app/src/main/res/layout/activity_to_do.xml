@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F9F7F7"
     tools:context=".ToDoActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginLeft="160dp"
         android:layout_marginTop="44dp"
         android:text="Tasks"
         android:textSize="32sp"
@@ -41,10 +42,12 @@
         android:layout_marginRight="34dp"
         android:layout_marginBottom="27dp"
         android:clickable="true"
+        app:backgroundTint="#DBE2EF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclertasks"
         app:srcCompat="@drawable/btn_add"
         tools:ignore="MissingConstraints,VectorDrawableCompat" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
