@@ -22,15 +22,35 @@ public class NotesActivity extends AppCompatActivity {
     ListView view;
     ArrayAdapter<String> notesAdapt;
     DayPlannerDatabase db;
+    String name;
+    TextView message;
     ArrayList<String> mynotes;
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        notesAdapt.clear();
+        view.setAdapter(notesAdapt);
+        db = new DayPlannerDatabase(getApplicationContext());
+        Cursor notes = db.getNotes(name);
+        if (notes.getCount() == 0)
+            message.setText("No notes yet.");
+        else{
+            message.setText("");
+            while (!notes.isAfterLast()) {
+                notesAdapt.add(notes.getString(1));
+                notes.moveToNext();
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes);
 
-        String name = getIntent().getExtras().getString("username");
-        TextView message = (TextView)findViewById(R.id.noteMessage);
+        name = getIntent().getExtras().getString("username");
+        message = (TextView)findViewById(R.id.noteMessage);
 
         view = (ListView)findViewById(R.id.noteView);
         notesAdapt = new ArrayAdapter<String>(getApplicationContext(),
@@ -40,7 +60,7 @@ public class NotesActivity extends AppCompatActivity {
         db = new DayPlannerDatabase(getApplicationContext());
         Cursor notes = db.getNotes(name);
 
-        if (notes == null)
+        if (notes.getCount() == 0)
             message.setText("No notes yet.");
         else{
             message.setText("");

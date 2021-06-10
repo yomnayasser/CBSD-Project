@@ -71,6 +71,7 @@ public class EditNotesActivity extends AppCompatActivity {
                 else
                     Toast.makeText(getApplicationContext(), "Nothing changed", Toast.LENGTH_LONG)
                             .show();
+                edit.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -78,39 +79,11 @@ public class EditNotesActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                AlertDialog deleteDialogue = new AlertDialog.Builder(getApplicationContext())
-//                        .setTitle("Are you sure you want to delete this note?")
-//                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                db = new DayPlannerDatabase(getApplicationContext());
-//                                db.deleteNote(noteID);
-//                                Toast.makeText(getApplicationContext(), "Note deleted",
-//                                        Toast.LENGTH_LONG).show();
-//                            }
-//                        })
-//                        .setNegativeButton("Cancel", null).setCancelable(false).show();
-
-//                AlertDialog.Builder dialogueBuilder = new AlertDialog.Builder(getApplicationContext());
-//                dialogueBuilder.setMessage("Are you sure you want to delete this note?")
-//                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                db = new DayPlannerDatabase(getApplicationContext());
-//                                db.deleteNote(noteID);
-//                                Toast.makeText(getApplicationContext(), "Note deleted",
-//                                        Toast.LENGTH_LONG).show();
-//                            }
-//                        })
-//                        .setNegativeButton("Cancel", null).setCancelable(false);
-//                dialogueBuilder.create();
-//                dialogueBuilder.show();
-//                AlertDialog deleteDialogue = dialogueBuilder.create();
-//                deleteDialogue.show();
                 db = new DayPlannerDatabase(getApplicationContext());
                 db.deleteNote(noteID);
                 Toast.makeText(getApplicationContext(), "Note deleted",
-                        Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
 
