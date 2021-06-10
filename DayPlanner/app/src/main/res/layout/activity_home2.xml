@@ -81,16 +81,17 @@
             android:layout_height="wrap_content"
             android:text="Home Page"
             android:textStyle="bold"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="50dp"
             android:textSize="40dp"
-            android:layout_marginLeft="100dp"
+            android:layout_gravity="center"
             />
 
         <Button
             android:id="@+id/remindersBtn"
             android:layout_width="184dp"
             android:layout_height="66dp"
-            android:layout_marginLeft="120dp"
+            android:layout_gravity="center"
             android:backgroundTint="#dbe2ef"
             android:text="Reminders"
             android:textColor="#3f72af" />
@@ -99,9 +100,8 @@
             android:id="@+id/todoBtn"
             android:layout_width="184dp"
             android:layout_height="66dp"
-            android:layout_marginLeft="120dp"
+            android:layout_gravity="center"
             android:text="To Do"
-            android:layout_marginTop="50dp"
             android:backgroundTint="#dbe2ef"
             android:textColor="#3f72af" />
 
@@ -109,9 +109,8 @@
             android:id="@+id/notesBtn"
             android:layout_width="184dp"
             android:layout_height="66dp"
-            android:layout_marginLeft="120dp"
+            android:layout_gravity="center"
             android:text="Notes"
-            android:layout_marginTop="50dp"
             android:backgroundTint="#dbe2ef"
             android:textColor="#3f72af"/>
 
@@ -119,10 +118,8 @@
             android:id="@+id/WalletBtn"
             android:layout_width="184dp"
             android:layout_height="66dp"
-            android:layout_marginLeft="120dp"
+            android:layout_gravity="center"
             android:text="Wallet"
-            android:layout_marginTop="50dp"
-
             android:backgroundTint="#dbe2ef"
             android:textColor="#3f72af"/>
 
@@ -130,11 +127,30 @@
             android:id="@+id/CalenderBtn"
             android:layout_width="184dp"
             android:layout_height="66dp"
-            android:layout_marginLeft="120dp"
+            android:layout_gravity="center"
             android:text="Calender"
-            android:layout_marginTop="50dp"
             android:backgroundTint="#dbe2ef"
             android:textColor="#3f72af"/>
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="190dp"
+            android:layout_gravity="center"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#3f72af"
+            />
+
+        <Button
+            android:id="@+id/LogOutBtn"
+            android:layout_width="184dp"
+            android:layout_height="66dp"
+            android:layout_gravity="center"
+            android:text="Logout"
+            android:backgroundTint="#dbe2ef"
+            android:textColor="#3f72af"/>
+
     </LinearLayout>
 
 

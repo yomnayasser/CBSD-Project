@@ -83,6 +83,7 @@ DayPlannerDatabase dp;
                     startActivity(i);
 
                 }
+                finish();
 
             }
         });

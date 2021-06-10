@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -104,13 +105,20 @@ public class MyWalletActivity extends AppCompatActivity {
             startActivity(i);
         });
         View v=LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_dialog, null, false);
+
         final PopupWindow pw = new PopupWindow(v,1000,1000, true);
-        pw.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
+        //pw.setBackgroundDrawable(new ColorDrawable(Color.BLACK));
         final ImageButton button = (ImageButton)findViewById(R.id.AddBtn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.alpha = 0.5f; //0.0-1.0
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                getWindow().setAttributes(lp);
                 pw.showAtLocation(v, Gravity.CENTER, 0, 0);
+                getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,
+                        WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
             }
         });
         final Button popup_btn=v.findViewById(R.id.addToBudget);
@@ -124,7 +132,12 @@ public class MyWalletActivity extends AppCompatActivity {
                     float new_budget=Currentbudget+Float.parseFloat(amount.getText().toString());
                     w.EditWallet(username,new_budget,Totalbudget,repeat,date,MyWalletActivity.this);
                     BudgetAmount.setText(String.valueOf(new_budget));
+                    Currentbudget=new_budget;
                 }
+                WindowManager.LayoutParams lp = getWindow().getAttributes();
+                lp.alpha = 1f;
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                getWindow().setAttributes(lp);
                 pw.dismiss();
                 amount.setText("");
             }

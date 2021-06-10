@@ -179,6 +179,7 @@ public class NewReminderActivity extends AppCompatActivity {
                     i2.putExtra("username", username);
                     startActivity(i2);
                     goCalender=false;
+                    calenderActivity.c.finish();
                 }
                 else
                 {
@@ -203,7 +204,7 @@ public class NewReminderActivity extends AppCompatActivity {
                 i.putExtra("username", username);
                 startActivity(i);
 
-//                finish();
+                finish();
             }
         });
     }

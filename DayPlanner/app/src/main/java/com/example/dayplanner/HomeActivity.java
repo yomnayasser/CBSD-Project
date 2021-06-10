@@ -24,6 +24,7 @@ public class HomeActivity extends AppCompatActivity {
         Button notesBtn = (Button)findViewById(R.id.notesBtn);
         Button WalletBtn=(Button)findViewById(R.id.WalletBtn);
         Button CalenderBtn=(Button)findViewById(R.id.CalenderBtn);
+        Button LogoutBtn=(Button)findViewById(R.id.LogOutBtn);
 
         remindersBtn.setOnClickListener(v -> {
             Intent i = new Intent(HomeActivity.this, RemindersActivity.class);
@@ -83,6 +84,9 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(i);
         });
 
+        LogoutBtn.setOnClickListener(v -> {
+            finish();
+        });
 
     }
 }

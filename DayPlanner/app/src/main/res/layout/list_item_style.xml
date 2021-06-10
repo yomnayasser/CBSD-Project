@@ -17,27 +17,27 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/ExpenseCategory"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginLeft="10dp"
-                android:textSize="20dp" />
+                android:textSize="15dp" />
             <TextView
                 android:id="@+id/ExpensePrice"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginLeft="10dp"
-                android:textSize="20dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/ExpenseDate"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"
                 android:layout_marginLeft="10dp"
-                android:textSize="20dp" />
+                android:textSize="15dp" />
         </LinearLayout>
 
 </LinearLayout>
