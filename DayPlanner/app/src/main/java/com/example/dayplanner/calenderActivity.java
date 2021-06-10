@@ -282,6 +282,7 @@ HashMap<String, ArrayList<CalenderEventsClass>> eventHashMap = new HashMap<Strin
                 i.putExtra("username", username);
                 i.putExtra("date", selectedDate);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -373,6 +374,7 @@ HashMap<String, ArrayList<CalenderEventsClass>> eventHashMap = new HashMap<Strin
             }
 
         }
+        finish();
 
         return super.onContextItemSelected(item);
     }

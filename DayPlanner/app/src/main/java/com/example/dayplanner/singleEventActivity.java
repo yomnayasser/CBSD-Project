@@ -100,6 +100,7 @@ private SimpleDateFormat _12HourFormatter = new SimpleDateFormat("hh:mm a");
                 Intent i = new Intent(singleEventActivity.this, calenderActivity.class);
                 i.putExtra("username",username);
                 startActivity(i);
+
             }
         });
 
