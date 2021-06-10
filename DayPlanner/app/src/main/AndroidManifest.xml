@@ -23,6 +23,7 @@
         <activity android:name=".RemindersActivity" />
         <activity android:name=".NewReminderActivity" />
         <activity android:name=".ToDoActivity" />
+        <activity android:name=".ToDoLists" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
