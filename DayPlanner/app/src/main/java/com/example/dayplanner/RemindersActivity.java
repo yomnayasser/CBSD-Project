@@ -150,14 +150,14 @@ public class RemindersActivity extends AppCompatActivity implements RemindersAda
                 }
 
 
-                TextView ff = (TextView)findViewById(R.id.test1);
-                ff.setText(ff.getText().toString() + "\n" + "id: " + rid + "\n" + "\n" + String.valueOf(timeDiff));
+//                TextView ff = (TextView)findViewById(R.id.test1);
+//                ff.setText(ff.getText().toString() + "\n" + "id: " + rid + "\n" + "\n" + String.valueOf(timeDiff));
 
 
 
             } catch (ParseException e) {
-                TextView ff = (TextView)findViewById(R.id.test1);
-                ff.setText(e.getMessage().toString());
+//                TextView ff = (TextView)findViewById(R.id.test1);
+//                ff.setText(e.getMessage().toString());
 
             }
 
